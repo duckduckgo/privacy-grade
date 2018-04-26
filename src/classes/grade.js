@@ -4,6 +4,9 @@ const tosdr = require('../../data/generated/tosdr')
 const tosdrMessages = require('../../data/tosdr-messages')
 const majorTrackingNetworks = require('../../data/major-tracking-networks')
 
+const polisis = require('../../data/polisis')
+
+const polisisRegexList = Object.keys(polisis).map(x => new RegExp(`(^)${utils.getDomain(x)}`))
 const tosdrRegexList = Object.keys(tosdr).map(x => new RegExp(`(^)${utils.getDomain(x)}`)) // only match domains, and from the start of the URL
 const tosdrClassMap = {'A': -1, 'B': 0, 'C': 0, 'D': 1, 'E': 2} // map tosdr class rankings to increase/decrease in grade
 const siteScores = ['A', 'B', 'C', 'D']
@@ -19,7 +22,33 @@ class Grade {
         this.domain = utils.getDomain(domain) // strip the subdomain. Fixes matching tosdr for eg encrypted.google.com
         this.isaMajorTrackingNetwork = this.isaMajorTrackingNetwork()
         this.tosdr = this.getTosdr()
+        this.polisis = this.getPolisis()
         this.trackersByUrl = {}
+    }
+
+    getPolisis () {
+        let result
+
+        polisisRegexList.some(polisisRE => {
+            let match = polisisRE.exec(this.domain)
+            if (match) {
+                let polisisData = polisis[match[0]]
+
+                if (!polisisData) return
+
+                let numGood = Object.keys(polisisData.good).length
+                let numBad = Object.keys(polisisData.bad).length
+
+                if (numGood && !numBad) {
+                    result = -1
+                } else if (numBad) {
+                    result = 1
+                }
+
+                return true
+            }
+        })
+        return result
     }
 
     getTosdr () {
@@ -138,8 +167,17 @@ class Grade {
                     why: `Has tosdr score ${tosdrScore}`,
                     tosdr: this.tosdr
                 })
+            } else if (this.polisis) {
+                beforeIndex += this.polisis
+                afterIndex += this.polisis
+
+                this.addDecision({
+                    change: this.polisis,
+                    index: beforeIndex,
+                    why: `Has polisis score ${this.polisis}`
+                })
             } else {
-                this.addDecision({ change: 0, index: beforeIndex, why: `No tosdr` })
+                this.addDecision({ change: 0, index: beforeIndex, why: `No known privacy policy` })
             }
         }
 
@@ -183,9 +221,11 @@ class Grade {
         }
         if (afterIndex < 0) afterIndex = 0
 
+        let hasGoodPrivacy = this.tosdr.class === 'A' || this.polisis === -1
+
         // only sites with a tosdr.class "A" can get a final grade of "A"
-        if (afterIndex === 0 && this.tosdr.class !== 'A') afterIndex = 1
-        if (beforeIndex === 0 && this.tosdr.class !== 'A') {
+        if (afterIndex === 0 && !hasGoodPrivacy) afterIndex = 1
+        if (beforeIndex === 0 && !hasGoodPrivacy) {
             beforeIndex = 1
 
             this.addDecision({
