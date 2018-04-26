@@ -2,9 +2,10 @@ const fs = require('fs');
 const log = console.log;
 const chalk = require('chalk');
 const name = process.argv[2];
+const state = process.argv[3] || 'before';
 const csvHeaders = 'domain,requests,initial,is major,tosdr,in major,https,obscure,blocked,total,grade\n'
-const csvPath  = `${name}.csv`;
-const histPath = `${name}.hist.csv`;
+const csvPath  = `${name}-${state}.csv`;
+const histPath = `${name}-${state}.hist.csv`;
 const inputPath = `${process.cwd()}/${name}-grades/`;
 
 let hist = new Array(100)
@@ -42,9 +43,6 @@ let csvDetails = (details) => {
         // for the final one we'll add the final grade as another column
         if (d.why.match(/final grade/)) {
             cols += col(d.index)
-            if (!hist[d.index])
-                hist[d.index] = 0
-            hist[d.index] += 1;
             cols += d.grade
         }
         else {
@@ -76,6 +74,11 @@ let getCSVData = (fileName) => {
         console.log(chalk.red(`error: missing site url or details for ${fileName}`));
         return;
     }
+
+    let index = site[`${state}Index`]
+
+    hist[index] = hist[index] || 0
+    hist[index] += 1
 
     let csvtext = `${siteName},${site.totalBlocked},${csvDetails(site.decisions)}`
     console.log(csvtext)
