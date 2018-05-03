@@ -1,6 +1,8 @@
 {
     "zoosk.com": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [],
             "good": []
@@ -13,6 +15,8 @@
     },
     "youtube.com": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -39,6 +43,8 @@
     },
     "yahoo.com": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -58,6 +64,8 @@
     },
     "xing.com": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [
                 "pseudonym not allowed (not because of user-to-user trust)"
@@ -72,6 +80,8 @@
     },
     "xfire.com": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [],
             "good": []
@@ -84,6 +94,8 @@
     },
     "worldofwarcraft.com": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [],
             "good": []
@@ -96,6 +108,8 @@
     },
     "wordpress.com": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -113,6 +127,8 @@
     },
     "wordfeud.com": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [],
             "good": []
@@ -125,6 +141,8 @@
     },
     "wikipedia.org": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [],
             "good": [
@@ -142,6 +160,8 @@
     },
     "whatsapp.com": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [
                 "user needs to check tosback.org"
@@ -156,6 +176,8 @@
     },
     "videobb.com": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [],
             "good": []
@@ -168,6 +190,8 @@
     },
     "vbulletin.com": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [],
             "good": []
@@ -180,6 +204,8 @@
     },
     "twitter.com": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [
                 "little involvement",
@@ -201,6 +227,8 @@
     },
     "twitpic.com": {
         "score": 85,
+        "goodScore": 0,
+        "badScore": 85,
         "all": {
             "bad": [
                 "they can license to third parties",
@@ -219,6 +247,8 @@
     },
     "tumblr.com": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [
                 "sets third-party cookies and/or ads",
@@ -238,6 +268,8 @@
     },
     "steampowered.com": {
         "score": -65,
+        "goodScore": 75,
+        "badScore": 10,
         "all": {
             "bad": [
                 "they can delete your account without prior notice and without a reason",
@@ -266,6 +298,8 @@
     },
     "store.steampowered.com": {
         "score": -65,
+        "goodScore": 75,
+        "badScore": 10,
         "all": {
             "bad": [
                 "they can delete your account without prior notice and without a reason",
@@ -294,6 +328,8 @@
     },
     "spotify.com": {
         "score": 10,
+        "goodScore": 0,
+        "badScore": 10,
         "all": {
             "bad": [
                 "no promise to inform/notify",
@@ -323,6 +359,8 @@
     },
     "soundcloud.com": {
         "score": 20,
+        "goodScore": 0,
+        "badScore": 20,
         "all": {
             "bad": [
                 "may sell your data in merger",
@@ -348,6 +386,8 @@
     },
     "sonic.net": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [],
             "good": [
@@ -362,6 +402,8 @@
     },
     "skype.com": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [
                 "you may not express negative opinions about them",
@@ -377,6 +419,8 @@
     },
     "seenthis.net": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [],
             "good": [
@@ -397,6 +441,8 @@
     },
     "runescape.com": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [],
             "good": []
@@ -409,6 +455,8 @@
     },
     "rapidshare.com": {
         "score": -50,
+        "goodScore": 50,
+        "badScore": 0,
         "all": {
             "bad": [],
             "good": [
@@ -429,6 +477,8 @@
     },
     "quora.com": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [
                 "device fingerprinting"
@@ -443,6 +493,8 @@
     },
     "phpbb.com": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [],
             "good": []
@@ -455,6 +507,8 @@
     },
     "packagetrackr.com": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [
                 "user needs to check tosback.org"
@@ -469,6 +523,8 @@
     },
     "owncube.com": {
         "score": -25,
+        "goodScore": 25,
+        "badScore": 0,
         "all": {
             "bad": [
                 "user needs to check tosback.org"
@@ -487,6 +543,8 @@
     },
     "olx.com": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [],
             "good": []
@@ -499,6 +557,8 @@
     },
     "netflix.com": {
         "score": -20,
+        "goodScore": 50,
+        "badScore": 30,
         "all": {
             "bad": [
                 "they can delete your account without prior notice and without a reason",
@@ -526,6 +586,8 @@
     },
     "nabble.com": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [
                 "user needs to check tosback.org"
@@ -540,6 +602,8 @@
     },
     "mint.com": {
         "score": 20,
+        "goodScore": 0,
+        "badScore": 20,
         "all": {
             "bad": [
                 "may sell your data in merger",
@@ -557,6 +621,8 @@
     },
     "microsoft.com": {
         "score": 60,
+        "goodScore": 0,
+        "badScore": 60,
         "all": {
             "bad": [
                 "tracks you on other websites",
@@ -579,6 +645,8 @@
     },
     "lastpass.com": {
         "score": -50,
+        "goodScore": 50,
+        "badScore": 0,
         "all": {
             "bad": [
                 "no quality guarantee",
@@ -608,6 +676,8 @@
     },
     "kolabnow.com": {
         "score": -75,
+        "goodScore": 75,
+        "badScore": 0,
         "all": {
             "bad": [],
             "good": [
@@ -632,6 +702,8 @@
     },
     "kolab.org": {
         "score": -75,
+        "goodScore": 75,
+        "badScore": 0,
         "all": {
             "bad": [],
             "good": [
@@ -656,6 +728,8 @@
     },
     "kippt.com": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [
                 "user needs to rely on tosback.org"
@@ -670,6 +744,8 @@
     },
     "jagex.com": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [],
             "good": [
@@ -684,6 +760,8 @@
     },
     "instagram.com": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [
                 "class action waiver",
@@ -701,6 +779,8 @@
     },
     "informe.com": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [
                 "user needs to check tosback.org"
@@ -715,6 +795,8 @@
     },
     "imgur.com": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [
                 "device fingerprinting"
@@ -729,6 +811,8 @@
     },
     "ifttt.com": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [
                 "user needs to check tosback.org"
@@ -743,6 +827,8 @@
     },
     "identi.ca": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [],
             "good": [
@@ -757,6 +843,8 @@
     },
     "hypster.com": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [],
             "good": []
@@ -769,6 +857,8 @@
     },
     "habbo.com": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [],
             "good": []
@@ -781,6 +871,8 @@
     },
     "gravatar.com": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [
                 "broader than necessary"
@@ -795,6 +887,8 @@
     },
     "grammarly.com": {
         "score": 20,
+        "goodScore": 0,
+        "badScore": 20,
         "all": {
             "bad": [
                 "no promise to inform/notify",
@@ -814,6 +908,8 @@
     },
     "google.com": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -843,6 +939,8 @@
     },
     "google.co.in": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -872,6 +970,8 @@
     },
     "google.co.jp": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -901,6 +1001,8 @@
     },
     "google.de": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -930,6 +1032,8 @@
     },
     "google.co.uk": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -959,6 +1063,8 @@
     },
     "google.com.br": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -988,6 +1094,8 @@
     },
     "google.fr": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -1017,6 +1125,8 @@
     },
     "google.ru": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -1046,6 +1156,8 @@
     },
     "google.it": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -1075,6 +1187,8 @@
     },
     "google.com.hk": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -1104,6 +1218,8 @@
     },
     "google.es": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -1133,6 +1249,8 @@
     },
     "google.ca": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -1162,6 +1280,8 @@
     },
     "google.com.mx": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -1191,6 +1311,8 @@
     },
     "google.com.tr": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -1220,6 +1342,8 @@
     },
     "google.com.au": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -1249,6 +1373,8 @@
     },
     "google.com.tw": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -1278,6 +1404,8 @@
     },
     "google.pl": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -1307,6 +1435,8 @@
     },
     "google.co.id": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -1336,6 +1466,8 @@
     },
     "google.com.ar": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -1365,6 +1497,8 @@
     },
     "google.com.ua": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -1394,6 +1528,8 @@
     },
     "google.com.pk": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -1423,6 +1559,8 @@
     },
     "google.co.th": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -1452,6 +1590,8 @@
     },
     "google.com.sa": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -1481,6 +1621,8 @@
     },
     "google.com.eg": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -1510,6 +1652,8 @@
     },
     "google.nl": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -1539,6 +1683,8 @@
     },
     "google.co.ve": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -1568,6 +1714,8 @@
     },
     "google.co.za": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -1597,6 +1745,8 @@
     },
     "google.gr": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -1626,6 +1776,8 @@
     },
     "google.com.ph": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -1655,6 +1807,8 @@
     },
     "google.se": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -1684,6 +1838,8 @@
     },
     "google.com.sg": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -1713,6 +1869,8 @@
     },
     "google.be": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -1742,6 +1900,8 @@
     },
     "google.az": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -1771,6 +1931,8 @@
     },
     "google.co.ao": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -1800,6 +1962,8 @@
     },
     "google.com.co": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -1829,6 +1993,8 @@
     },
     "google.co.kr": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -1858,6 +2024,8 @@
     },
     "google.at": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -1887,6 +2055,8 @@
     },
     "google.com.vn": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -1916,6 +2086,8 @@
     },
     "google.cn": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -1945,6 +2117,8 @@
     },
     "google.com.ng": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -1974,6 +2148,8 @@
     },
     "google.cz": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -2003,6 +2179,8 @@
     },
     "google.ch": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -2032,6 +2210,8 @@
     },
     "google.no": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -2061,6 +2241,8 @@
     },
     "google.ro": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -2090,6 +2272,8 @@
     },
     "google.com.pe": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -2119,6 +2303,8 @@
     },
     "google.pt": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -2148,6 +2334,8 @@
     },
     "google.cl": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -2177,6 +2365,8 @@
     },
     "google.ae": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -2206,6 +2396,8 @@
     },
     "google.ie": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -2235,6 +2427,8 @@
     },
     "google.dk": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -2264,6 +2458,8 @@
     },
     "google.dz": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -2293,6 +2489,8 @@
     },
     "google.hu": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -2322,6 +2520,8 @@
     },
     "google.fi": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -2351,6 +2551,8 @@
     },
     "google.co.il": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -2380,6 +2582,8 @@
     },
     "google.sk": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -2409,6 +2613,8 @@
     },
     "google.kz": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -2438,6 +2644,8 @@
     },
     "google.com.kw": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -2467,6 +2675,8 @@
     },
     "google.co.nz": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -2496,6 +2706,8 @@
     },
     "google.lk": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -2525,6 +2737,8 @@
     },
     "google.bg": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -2554,6 +2768,8 @@
     },
     "google.by": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -2583,6 +2799,8 @@
     },
     "google.com.do": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -2612,6 +2830,8 @@
     },
     "google.com.ly": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -2641,6 +2861,8 @@
     },
     "google.rs": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -2670,6 +2892,8 @@
     },
     "google.com.mm": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -2699,6 +2923,8 @@
     },
     "google.hr": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -2728,6 +2954,8 @@
     },
     "google.com.ec": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -2757,6 +2985,8 @@
     },
     "google.tn": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -2786,6 +3016,8 @@
     },
     "google.com.my": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -2815,6 +3047,8 @@
     },
     "google.lt": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -2844,6 +3078,8 @@
     },
     "google.tm": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -2873,6 +3109,8 @@
     },
     "google.iq": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -2902,6 +3140,8 @@
     },
     "google.si": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -2931,6 +3171,8 @@
     },
     "google.com.af": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -2960,6 +3202,8 @@
     },
     "google.com.gt": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -2989,6 +3233,8 @@
     },
     "google.lv": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -3018,6 +3264,8 @@
     },
     "google.com.pr": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -3047,6 +3295,8 @@
     },
     "google.com.gh": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -3076,6 +3326,8 @@
     },
     "google.com.bd": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -3105,6 +3357,8 @@
     },
     "google.com.cu": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -3134,6 +3388,8 @@
     },
     "google.jo": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -3163,6 +3419,8 @@
     },
     "google.com.lb": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -3192,6 +3450,8 @@
     },
     "google.com.sv": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -3221,6 +3481,8 @@
     },
     "google.ee": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -3250,6 +3512,8 @@
     },
     "google.com.bh": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -3279,6 +3543,8 @@
     },
     "google.ba": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -3308,6 +3574,8 @@
     },
     "google.com.uy": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -3337,6 +3605,8 @@
     },
     "google.co.ma": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -3366,6 +3636,8 @@
     },
     "google.cm": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -3395,6 +3667,8 @@
     },
     "google.tt": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -3424,6 +3698,8 @@
     },
     "google.com.kh": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -3453,6 +3729,8 @@
     },
     "google.com.py": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -3482,6 +3760,8 @@
     },
     "google.com.np": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -3511,6 +3791,8 @@
     },
     "google.com.cy": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -3540,6 +3822,8 @@
     },
     "google.com.ni": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -3569,6 +3853,8 @@
     },
     "google.com.et": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -3598,6 +3884,8 @@
     },
     "google.cd": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -3627,6 +3915,8 @@
     },
     "google.hn": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -3656,6 +3946,8 @@
     },
     "google.ge": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -3685,6 +3977,8 @@
     },
     "google.am": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -3714,6 +4008,8 @@
     },
     "google.lu": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -3743,6 +4039,8 @@
     },
     "google.com.qa": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -3772,6 +4070,8 @@
     },
     "google.co.mz": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -3801,6 +4101,8 @@
     },
     "google.co.bw": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -3830,6 +4132,8 @@
     },
     "google.mg": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -3859,6 +4163,8 @@
     },
     "google.sn": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -3888,6 +4194,8 @@
     },
     "google.com.pg": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -3917,6 +4225,8 @@
     },
     "google.cg": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -3946,6 +4256,8 @@
     },
     "google.com.bn": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -3975,6 +4287,8 @@
     },
     "google.com.tj": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -4004,6 +4318,8 @@
     },
     "google.ht": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -4033,6 +4349,8 @@
     },
     "google.co.zm": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -4062,6 +4380,8 @@
     },
     "google.co.ke": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -4091,6 +4411,8 @@
     },
     "google.al": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -4120,6 +4442,8 @@
     },
     "google.bf": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -4149,6 +4473,8 @@
     },
     "google.mu": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -4178,6 +4504,8 @@
     },
     "google.co.cr": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -4207,6 +4535,8 @@
     },
     "google.la": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -4236,6 +4566,8 @@
     },
     "google.mn": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -4265,6 +4597,8 @@
     },
     "google.com.bo": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -4294,6 +4628,8 @@
     },
     "google.org": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -4323,6 +4659,8 @@
     },
     "google.com.jm": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -4352,6 +4690,8 @@
     },
     "google.co.tz": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -4381,6 +4721,8 @@
     },
     "google.com.na": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -4410,6 +4752,8 @@
     },
     "google.ml": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -4439,6 +4783,8 @@
     },
     "google.com.mt": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -4468,6 +4814,8 @@
     },
     "google.is": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -4497,6 +4845,8 @@
     },
     "google.bj": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -4526,6 +4876,8 @@
     },
     "google.co.ug": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -4555,6 +4907,8 @@
     },
     "google.rw": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -4584,6 +4938,8 @@
     },
     "google.com.om": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -4613,6 +4969,8 @@
     },
     "google.ci": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -4642,6 +5000,8 @@
     },
     "google.bs": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -4671,6 +5031,8 @@
     },
     "google.td": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -4700,6 +5062,8 @@
     },
     "google.ps": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -4729,6 +5093,8 @@
     },
     "google.com.gi": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -4758,6 +5124,8 @@
     },
     "google.com.pa": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -4787,6 +5155,8 @@
     },
     "google.com.sl": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -4816,6 +5186,8 @@
     },
     "google.co.uz": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -4845,6 +5217,8 @@
     },
     "google.md": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -4874,6 +5248,8 @@
     },
     "google.bi": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -4903,6 +5279,8 @@
     },
     "google.sr": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -4932,6 +5310,8 @@
     },
     "google.cat": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -4961,6 +5341,8 @@
     },
     "google.so": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -4990,6 +5372,8 @@
     },
     "google.bt": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -5019,6 +5403,8 @@
     },
     "google.je": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -5048,6 +5434,8 @@
     },
     "google.gy": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -5077,6 +5465,8 @@
     },
     "google.me": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -5106,6 +5496,8 @@
     },
     "google.co.zw": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -5135,6 +5527,8 @@
     },
     "google.gp": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -5164,6 +5558,8 @@
     },
     "google.tg": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -5193,6 +5589,8 @@
     },
     "google.co.ls": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -5222,6 +5620,8 @@
     },
     "google.as": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -5251,6 +5651,8 @@
     },
     "google.com.bz": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -5280,6 +5682,8 @@
     },
     "google.cf": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -5309,6 +5713,8 @@
     },
     "google.mv": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -5338,6 +5744,8 @@
     },
     "google.ad": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -5367,6 +5775,8 @@
     },
     "google.li": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -5396,6 +5806,8 @@
     },
     "google.cv": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -5425,6 +5837,8 @@
     },
     "google.mk": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -5454,6 +5868,8 @@
     },
     "google.com.vc": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -5483,6 +5899,8 @@
     },
     "google.com.ag": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -5512,6 +5930,8 @@
     },
     "google.gl": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -5541,6 +5961,8 @@
     },
     "google.ne": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -5570,6 +5992,8 @@
     },
     "google.mw": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -5599,6 +6023,8 @@
     },
     "google.ws": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -5628,6 +6054,8 @@
     },
     "google.kg": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -5657,6 +6085,8 @@
     },
     "google.gm": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -5686,6 +6116,8 @@
     },
     "google.to": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -5715,6 +6147,8 @@
     },
     "google.com.sb": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -5744,6 +6178,8 @@
     },
     "google.com.tn": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -5773,6 +6209,8 @@
     },
     "google.ga": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -5802,6 +6240,8 @@
     },
     "google.tl": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -5831,6 +6271,8 @@
     },
     "google.im": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -5860,6 +6302,8 @@
     },
     "google.com.fj": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -5889,6 +6333,8 @@
     },
     "google.dj": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -5918,6 +6364,8 @@
     },
     "google.ac": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -5947,6 +6395,8 @@
     },
     "google.com.iq": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -5976,6 +6426,8 @@
     },
     "google.vg": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -6005,6 +6457,8 @@
     },
     "google.dm": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -6034,6 +6488,8 @@
     },
     "google.sc": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -6063,6 +6519,8 @@
     },
     "google.com.pt": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -6092,6 +6550,8 @@
     },
     "google.com.cn": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -6121,6 +6581,8 @@
     },
     "google.st": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -6150,6 +6612,8 @@
     },
     "google.ng": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -6179,6 +6643,8 @@
     },
     "google.com.ai": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -6208,6 +6674,8 @@
     },
     "google.ki": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -6237,6 +6705,8 @@
     },
     "google.vu": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -6266,6 +6736,8 @@
     },
     "google.sm": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -6295,6 +6767,8 @@
     },
     "google.jp": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -6324,6 +6798,8 @@
     },
     "google.om": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -6353,6 +6829,8 @@
     },
     "google.co.vi": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -6382,6 +6860,8 @@
     },
     "google.gg": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -6411,6 +6891,8 @@
     },
     "google.fm": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -6440,6 +6922,8 @@
     },
     "google.hk": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -6469,6 +6953,8 @@
     },
     "google.co.ck": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -6498,6 +6984,8 @@
     },
     "google.tk": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -6527,6 +7015,8 @@
     },
     "google.co": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -6556,6 +7046,8 @@
     },
     "google.in": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -6585,6 +7077,8 @@
     },
     "google.co.je": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -6614,6 +7108,8 @@
     },
     "google.com.ve": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -6643,6 +7139,8 @@
     },
     "google.tw": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -6672,6 +7170,8 @@
     },
     "google.us": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -6701,6 +7201,8 @@
     },
     "google.ua": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -6730,6 +7232,8 @@
     },
     "google.de.com": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -6759,6 +7263,8 @@
     },
     "google.ms": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -6788,6 +7294,8 @@
     },
     "google.com.by": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -6817,6 +7325,8 @@
     },
     "google.nr": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -6846,6 +7356,8 @@
     },
     "google.br.com": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -6875,6 +7387,8 @@
     },
     "google.sh": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -6904,6 +7418,8 @@
     },
     "google.hk.com": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -6933,6 +7449,8 @@
     },
     "google.kr": {
         "score": 220,
+        "goodScore": 0,
+        "badScore": 220,
         "all": {
             "bad": [
                 "device fingerprinting",
@@ -6962,6 +7480,8 @@
     },
     "github.com": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [
                 "user needs to check tosback.org",
@@ -6994,6 +7514,8 @@
     },
     "freeforums.org": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [
                 "user needs to check tosback.org"
@@ -7008,6 +7530,8 @@
     },
     "foxnews.com": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [
                 "device fingerprinting"
@@ -7022,6 +7546,8 @@
     },
     "flickr.com": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [],
             "good": [
@@ -7038,6 +7564,8 @@
     },
     "flattr.com": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [
                 "sets third-party cookies and/or ads"
@@ -7052,6 +7580,8 @@
     },
     "facebook.com": {
         "score": 100,
+        "goodScore": 0,
+        "badScore": 100,
         "all": {
             "bad": [
                 "tracks you on other websites",
@@ -7076,6 +7606,8 @@
     },
     "evernote.com": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [],
             "good": []
@@ -7088,6 +7620,8 @@
     },
     "envato.com": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [],
             "good": []
@@ -7100,6 +7634,8 @@
     },
     "ebuddy.com": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [],
             "good": []
@@ -7112,6 +7648,8 @@
     },
     "duckduckgo.com": {
         "score": -100,
+        "goodScore": 100,
+        "badScore": 0,
         "all": {
             "bad": [],
             "good": [
@@ -7128,6 +7666,8 @@
     },
     "donttrack.us": {
         "score": -100,
+        "goodScore": 100,
+        "badScore": 0,
         "all": {
             "bad": [],
             "good": [
@@ -7144,6 +7684,8 @@
     },
     "spreadprivacy.com": {
         "score": -100,
+        "goodScore": 100,
+        "badScore": 0,
         "all": {
             "bad": [],
             "good": [
@@ -7160,6 +7702,8 @@
     },
     "duckduckhack.com": {
         "score": -100,
+        "goodScore": 100,
+        "badScore": 0,
         "all": {
             "bad": [],
             "good": [
@@ -7176,6 +7720,8 @@
     },
     "privatebrowsingmyths.com": {
         "score": -100,
+        "goodScore": 100,
+        "badScore": 0,
         "all": {
             "bad": [],
             "good": [
@@ -7192,6 +7738,8 @@
     },
     "duck.co": {
         "score": -100,
+        "goodScore": 100,
+        "badScore": 0,
         "all": {
             "bad": [],
             "good": [
@@ -7208,6 +7756,8 @@
     },
     "cispaletter.org": {
         "score": -100,
+        "goodScore": 100,
+        "badScore": 0,
         "all": {
             "bad": [],
             "good": [
@@ -7224,6 +7774,8 @@
     },
     "dropbox.com": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [],
             "good": []
@@ -7236,6 +7788,8 @@
     },
     "disqus.com": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [
                 "user needs to check tosback.org"
@@ -7252,6 +7806,8 @@
     },
     "dictionary.com": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [
                 "device fingerprinting"
@@ -7266,6 +7822,8 @@
     },
     "delicious.com": {
         "score": 20,
+        "goodScore": 0,
+        "badScore": 20,
         "all": {
             "bad": [
                 "only for your individual and non-commercial use",
@@ -7287,6 +7845,8 @@
     },
     "delicious.com.au": {
         "score": 20,
+        "goodScore": 0,
+        "badScore": 20,
         "all": {
             "bad": [
                 "only for your individual and non-commercial use",
@@ -7308,6 +7868,8 @@
     },
     "coursera.org": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [
                 "user needs to rely on tosback.org"
@@ -7322,6 +7884,8 @@
     },
     "couchsurfing.org": {
         "score": 20,
+        "goodScore": 0,
+        "badScore": 20,
         "all": {
             "bad": [
                 "keep a license even after you close your account",
@@ -7345,6 +7909,8 @@
     },
     "cnn.com": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [
                 "device fingerprinting"
@@ -7359,6 +7925,8 @@
     },
     "cnet.com": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [
                 "device fingerprinting"
@@ -7373,6 +7941,8 @@
     },
     "cloudant.com": {
         "score": 20,
+        "goodScore": 0,
+        "badScore": 20,
         "all": {
             "bad": [
                 "sets third-party cookies and/or ads",
@@ -7400,6 +7970,8 @@
     },
     "null": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [
                 "device fingerprinting"
@@ -7414,6 +7986,8 @@
     },
     "bitly.com": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [],
             "good": []
@@ -7426,6 +8000,8 @@
     },
     "bearshare.com": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [],
             "good": []
@@ -7438,6 +8014,8 @@
     },
     "bbc.com": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [
                 "device fingerprinting"
@@ -7452,6 +8030,8 @@
     },
     "icloud.com": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [],
             "good": []
@@ -7464,6 +8044,8 @@
     },
     "apple.com": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [
                 "user needs to check tosback.org"
@@ -7478,6 +8060,8 @@
     },
     "app.net": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [
                 "defend, indemnify, hold harmless",
@@ -7500,6 +8084,8 @@
     },
     "amazon.com": {
         "score": 110,
+        "goodScore": 0,
+        "badScore": 110,
         "all": {
             "bad": [
                 "may sell your data in merger",
@@ -7521,6 +8107,8 @@
     },
     "allrecipes.com": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [
                 "user needs to check tosback.org"
@@ -7535,6 +8123,8 @@
     },
     "500px.com": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [
                 "class action waiver",
@@ -7563,6 +8153,8 @@
     },
     "500px.me": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [
                 "class action waiver",
@@ -7591,6 +8183,8 @@
     },
     "500px.org": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [
                 "class action waiver",
@@ -7619,6 +8213,8 @@
     },
     "500px.net": {
         "score": 0,
+        "goodScore": 0,
+        "badScore": 0,
         "all": {
             "bad": [
                 "class action waiver",
