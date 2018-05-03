@@ -20,7 +20,8 @@ class Grade {
         this.decisions = []
         this.hasObscureTracker = false
         this.domain = utils.getDomain(domain) // strip the subdomain. Fixes matching tosdr for eg encrypted.google.com
-        this.isaMajorTrackingNetwork = this.isaMajorTrackingNetwork()
+        this.parentCompany = false
+        this.isaMajorTrackingNetwork = this.isaMajorTrackingNetwork() // { weight: result, parent: parentCompany }
         this.tosdr = this.getTosdr()
         this.polisis = this.getPolisis()
         this.trackersByUrl = {}
@@ -36,14 +37,21 @@ class Grade {
 
                 if (!polisisData) return
 
-                let numGood = Object.keys(polisisData.good).length
-                let numBad = Object.keys(polisisData.bad).length
-
-                if (numGood && !numBad) {
-                    result = -1
-                } else if (numBad) {
-                    result = 1
+                result = {
+                    good: Object.keys(polisisData.good).length,
+                    bad: Object.keys(polisisData.bad).length
                 }
+
+                // using only bad, and a change by 1
+                // later this is going to be weighted by the prevalence of the site as a tracking network.
+                // ie google's bad privacy policies are magnified by its reach.
+                result.change = result.bad > 0 ? 1 : 0
+
+                // if (numGood && !numBad) {
+                //     result = -1
+                // } else if (numBad) {
+                //     result = 1
+                // }
 
                 return true
             }
@@ -87,7 +95,11 @@ class Grade {
 
                 result = {
                     score: tosdrData.score,
+                    goodScore: tosdrData.goodScore,
+                    badScore: tosdrData.badScore,
                     class: tosdrData.class,
+                    good: matchGood.length,
+                    bad: matchBad.length,
                     reasons: {
                         good: matchGood,
                         bad: matchBad
@@ -108,13 +120,18 @@ class Grade {
     isaMajorTrackingNetwork () {
         let result = 0
         if (this.specialPage || !this.domain) return result
+
         const parentCompany = utils.findParent(this.domain.split('.'))
         if (!parentCompany) return result
+
         const isMajorNetwork = majorTrackingNetworks[parentCompany.toLowerCase()]
+
         if (isMajorNetwork) {
             result = Math.ceil(isMajorNetwork / 10)
+            this.parentCompany = parentCompany
+            console.log(`setting parent company to ${this.parentCompany}`)
         }
-        return result
+        return { weight: result, parent: parentCompany }
     }
 
     /*
@@ -131,10 +148,11 @@ class Grade {
         this.addDecision({change: 1, index: beforeIndex, why: 'Default grade'})
 
         if (this.isaMajorTrackingNetwork) {
-            beforeIndex += this.isaMajorTrackingNetwork
-            afterIndex += this.isaMajorTrackingNetwork
+            console.log(`isaMajorTrackingNetwork : parent co is ${this.isaMajorTrackingNetwork.parent}`)
+            beforeIndex += this.isaMajorTrackingNetwork.weight
+            afterIndex += this.isaMajorTrackingNetwork.weight
             this.addDecision({
-                change: this.isaMajorTrackingNetwork,
+                change: this.isaMajorTrackingNetwork.weight,
                 index: beforeIndex,
                 why: 'Is a major tracking network'
             })
@@ -168,13 +186,13 @@ class Grade {
                     tosdr: this.tosdr
                 })
             } else if (this.polisis) {
-                beforeIndex += this.polisis
-                afterIndex += this.polisis
+                beforeIndex += this.polisis.change
+                afterIndex += this.polisis.change
 
                 this.addDecision({
-                    change: this.polisis,
+                    change: this.polisis.change,
                     index: beforeIndex,
-                    why: `Has polisis score ${this.polisis}`
+                    why: `Has polisis score ${this.polisis.bad} (bad count)`
                 })
             } else {
                 this.addDecision({ change: 0, index: beforeIndex, why: `No known privacy policy` })
@@ -221,7 +239,7 @@ class Grade {
         }
         if (afterIndex < 0) afterIndex = 0
 
-        let hasGoodPrivacy = this.tosdr.class === 'A' || this.polisis === -1
+        let hasGoodPrivacy = this.tosdr.class === 'A' || (this.polisis && this.polisis.change === 0)
 
         // only sites with a tosdr.class "A" can get a final grade of "A"
         if (afterIndex === 0 && !hasGoodPrivacy) afterIndex = 1
