@@ -102,11 +102,13 @@ const run = async () => {
         let gradeData = grade.get()
 
         gradeData.url = `http://${hostname}`
+        gradeData.parentCompany = grade.isaMajorTrackingNetwork ? grade.isaMajorTrackingNetwork.parent : false
         gradeData.decisions = grade.decisions
         gradeData.trackersBlocked = trackersBlocked
         gradeData.trackersNotBlocked = trackersNotBlocked
         gradeData.totalBlocked = grade.totalBlocked
         gradeData.tosdr = grade.tosdr
+        gradeData.polisis = grade.polisis
         gradeData.hasHTTPS = grade.hasHTTPS
 
         console.log(chalk.green(`got grade for ${hostname}: before ${gradeData.before}, after ${gradeData.after}, ${grade.totalBlocked} trackers blocked`))
