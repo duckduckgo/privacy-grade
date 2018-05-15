@@ -181,7 +181,8 @@ let getCSVData = (fileName) => {
     score.s = score.e + tscore.b
 
     score.s_rounded = Math.round(score.s / 5, 1) * 5
-    score.e_rounded = Math.round(score.e / 5, 1) * 5
+    // score.e_rounded = Math.round(score.e / 2, 1) * 2
+    score.e_rounded = score.e
 
     if (!hist[score.s_rounded])
         hist[score.s_rounded] = 0
