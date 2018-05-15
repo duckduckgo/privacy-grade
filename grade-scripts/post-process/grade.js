@@ -11,6 +11,10 @@ const inputPath = `${process.cwd()}/${name}-grades/`;
 
 const prev = require('./prev')
 
+const whole = 10 // 5
+const half = 5 // 3 
+const none = 0
+
 let hist = new Array(100)
 let hist_e = new Array(100)
 
@@ -39,24 +43,45 @@ var trackerScore = (site) => {
         if (!p)
             return 0
 
-        // most common
+        // baseline min
         if (p<1)
             return 1
 
-        // google
-        if (p > 80)
+        // google is 70-80
+        if (p > 50)
+            return 10 //5
+
+        // facebook is ~30
+        if (p > 20)
+            return 9
+
+        if (p > 10)
+            return 8
+
+
+        if (p > 9)
+            return 7
+
+        if (p > 8)
+            return 6
+
+        // return Math.round(p)
+
+        if (p > 5)
             return 5
 
-        // facebook
-        if (p > 30)
+        if (p > 4)
+            return 4
+
+        if (p > 4)
             return 4
 
         if (p > 3)
             return 3
 
         // everything else
-        return p
-            
+        // return p
+        return 2
     }
 
     let bl = (l) => {
@@ -146,9 +171,6 @@ let getCSVData = (fileName) => {
     }
 
     // let csvtext = `${siteName},${site.totalBlocked},${csvDetails(site.decisions)}`
-    const whole = 5
-    const half = 3
-    const none = 0
 
     // let score_blocked = 0
     // let score_unblocked = 0
