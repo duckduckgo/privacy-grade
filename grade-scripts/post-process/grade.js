@@ -1,19 +1,34 @@
 const fs = require('fs');
+const program = require('commander')
 const log = console.log;
 const chalk = require('chalk');
-const name = process.argv[2];
+// const name = process.argv[2];
 //    csvHeaders = 'domain,requests,initial,is major,tosdr,in major,https,obscure,blocked,total,grade\n'
-const csvHeaders = 'domain,requests,site pscore,blocked score,unblocked score,https,tosdr,polisis,calculated privacy,site,enhanced,oldscore,grade'
-const csvPath  = `${name}.csv`;
-const histPath = `${name}.hist.csv`;
-const hist_ePath = `${name}.hist-e.csv`;
-const inputPath = `${process.cwd()}/${name}-grades/`;
+const csvHeaders = 'domain,requests,site pscore,blocked score,unblocked score,https,tosdr,polisis,calculated privacy,site,enhanced,oldscore,site grade, enhanced grade'
+
+
+program
+    .option('-i, --input <name>', 'The name to use when looking for sites, e.g. "test" will look in "test-sites"')
+    .option('-o, --output <name>', 'Output name, e.g. "test" will output files at "test-grades"')
+    .parse(process.argv)
+
+
+const input = program.input
+const output = program.output
+
+const inputPath = `${process.cwd()}/${input}-grades/`;
+
+const csvPath  = `${output}.csv`;
+const histPath = `${output}.hist.csv`;
+const hist_ePath = `${output}.hist-e.csv`;
+const hist_gradesPath = `${output}.hist-grades.csv`;
 
 const prev = require('./prev')
 
 const whole = 10 // 5
 const half = 5 // 3 
 const none = 0
+const privacyUnknown = 3
 
 let hist = new Array(100)
 let hist_e = new Array(100)
@@ -30,7 +45,7 @@ const appendLine = (fn,text) => {
 
 var trackerScore = (site) => {
 
-    console.log(`---\n${site.domain} => ${Object.keys(site.trackersBlocked).length} parent: ${site.parentCompany}`)
+    // console.log(`---\n${site.domain} => ${Object.keys(site.trackersBlocked).length} parent: ${site.parentCompany}`)
 
     let parent = 0
 
@@ -40,48 +55,56 @@ var trackerScore = (site) => {
 
     let normalizeTracker = (p) => {
 
+
+        // .01
+        // .1
+        // .5
+        // 1
+        // 3
+        // 5
+        // 10
+        // 25
+        // 50
+        // 70
+
         if (!p)
             return 0
 
         // baseline min
-        if (p<1)
+        if (p < .01)
             return 1
 
-        // google is 70-80
-        if (p > 50)
-            return 10 //5
+        if (p < 0.1)
+            return 2
 
-        // facebook is ~30
-        if (p > 20)
-            return 9
-
-        if (p > 10)
-            return 8
-
-
-        if (p > 9)
-            return 7
-
-        if (p > 8)
-            return 6
-
-        // return Math.round(p)
-
-        if (p > 5)
-            return 5
-
-        if (p > 4)
-            return 4
-
-        if (p > 4)
-            return 4
-
-        if (p > 3)
+        if (p < 1)
             return 3
 
-        // everything else
-        // return p
-        return 2
+        // 1 - 5
+        if (p < 5)
+            return 4
+
+        if (p < 10)
+            return 5
+
+        if (p < 15)
+            return 6
+
+        if (p < 20)
+            return 7
+
+        // if (p < 25)
+        //     return 7
+
+        if (p < 50)
+            return 8
+
+        if (p < 75)
+            return 9
+
+
+        // console.log(`map score fall through: returning ${p}`)
+        return 10
     }
 
     let bl = (l) => {
@@ -94,7 +117,7 @@ var trackerScore = (site) => {
             let p = prev[co] || 0
             let np = normalizeTracker(p)
 
-            console.log(`   ${co}: ${p} -> ${np}`)
+            // console.log(`   ${co}: ${p} -> ${np}`)
 
             s += np
 
@@ -109,6 +132,134 @@ var trackerScore = (site) => {
 
     }
 }
+
+let hist_grades = {
+    'A+': 0,
+    'A': 0,
+    'A-': 0,
+    'B': 0,
+    'B+': 0,
+    'B-': 0,
+    'C+': 0,
+    'C': 0,
+    'C-': 0,
+    'D+': 0,
+    'D': 0,
+    'D-': 0,
+    'F': 0
+}
+
+let hist_grades_e = {
+    'A+': 0,
+    'A': 0,
+    'A-': 0,
+    'B': 0,
+    'B+': 0,
+    'B-': 0,
+    'C+': 0,
+    'C': 0,
+    'C-': 0,
+    'D+': 0,
+    'D': 0,
+    'D-': 0,
+    'F': 0
+}
+
+// map score to grade
+let gradeMap = {
+    0: 'A+',
+    1: 'A',
+    2: 'A-',
+
+    3: 'B+',
+
+    4: 'B',
+    5: 'B',
+    6: 'B',
+    7: 'B',
+    8: 'B',
+    9: 'B',
+    10:'B',
+
+    11:'B-',
+    12:'B-',
+    13:'B-',
+
+    14:'C',
+    15:'C',
+    16:'C',
+    17:'C',
+    18:'C',
+    19:'C',
+
+    20:'D',
+    21:'D',
+    22:'D',
+    23:'D',
+    24:'D',
+    25:'D',
+    26:'D',
+    27:'D',
+    28:'D',
+    29:'D',
+
+    30:'D-'
+}
+
+// map grade to score
+let scoreMap = { }
+Object.keys(gradeMap).forEach( (s) => {
+    scoreMap[gradeMap[s]] = s
+})
+
+// const maxGradeScore = 30
+
+// turn a score into a grade
+let scoreToGrade= (s) => {
+    var g = gradeMap[Math.round(s)]
+    if (g)
+        return g
+
+    if (s > 30)
+        return gradeMap[30]
+
+}
+
+let gradeToScore= (g) => {
+    let s = scoreMap(g)
+
+    if (s)
+        return s
+
+    console.log(`gradeToScore: '${g}' unknown or invalid`)
+
+    return 'X'
+}
+
+let mapPrivacy = (p) => {
+
+    if (!p)
+        return 0
+
+    if (p <= 10)
+        return 1
+
+    if (p <= 2)
+        return 3
+
+    if (p <= 100)
+        return 7
+
+    if (p <= 200)
+        return 9
+
+    if (p > 200)
+        return 10
+
+    return 0
+}
+
+
 
 function _getDetailsData (jsonText) {
     let siteData = JSON.parse(jsonText);
@@ -185,13 +336,15 @@ let getCSVData = (fileName) => {
     
 
     if (site.tosdr && site.tosdr.badScore)
-        tosdr = site.tosdr.badScore * 0.25
+        tosdr = site.tosdr.badScore //* 0.25
 
-    privacy = tosdr + polisis.bad
+    privacy = mapPrivacy(tosdr) + polisis.bad
+    if (privacy > 10)
+        privacy = 10
 
     // unknown privacy practices
     if (privacy === 0 && polisis.good === 0 && polisis.bad === 0)
-        privacy = half
+        privacy = privacyUnknown //half
 
 
     // enhanced score excludes blocked trackers
@@ -199,12 +352,15 @@ let getCSVData = (fileName) => {
     //        blocked     site prev    https   polisis       scaled tosdr
     score.e = tscore.n + tscore.site + https + privacy // polisis.bad + tosdr 
 
-    // site score includes blocked tracekrs
+    // site score includes blocked trackers
     score.s = score.e + tscore.b
 
+    // score.s_rounded = Math.round(score.s / 10, 1) * 10
     score.s_rounded = Math.round(score.s / 5, 1) * 5
-    // score.e_rounded = Math.round(score.e / 2, 1) * 2
-    score.e_rounded = score.e
+    // score.s_rounded = Math.round(score.s / 2, 1) * 2
+    // score.s_rounded = Math.round(score.s)
+    score.e_rounded = Math.round(score.e / 5, 1) * 5
+    // score.e_rounded = score.e
 
     if (!hist[score.s_rounded])
         hist[score.s_rounded] = 0
@@ -214,9 +370,21 @@ let getCSVData = (fileName) => {
         hist_e[score.e_rounded] = 0
     hist_e[score.e_rounded] += 1;
 
+    let siteGrade = scoreToGrade(score.s)
+    let enhancedGrade = scoreToGrade(score.e)
 
-    //               domain,      requests,         site pscore,  blocked score,   unblocked score, https, tosdr, polisis, privacy ,      site,   enhanced,   oldscore, grade\n'
-    let csvtext = `${siteName},${site.totalBlocked},${tscore.site},${tscore.b},${tscore.n},${https},${tosdr},${polisis.bad},${privacy},${score.s},${score.e},${oldscore},${grade}`
+    if (!hist_grades[siteGrade])
+        hist_grades[siteGrade] = 0
+    hist_grades[siteGrade] += 1;
+
+    if (!hist_grades_e[enhancedGrade])
+        hist_grades_e[enhancedGrade] = 0
+    hist_grades_e[enhancedGrade] += 1;
+
+
+    //               domain,      requests,         site pscore,  blocked score,   unblocked score, https, tosdr, polisis, privacy ,      site,   enhanced,   oldscore, grade, e grade\n'
+    let csvtext = `${siteName},${site.totalBlocked},${tscore.site},${tscore.b},${tscore.n},${https},${tosdr},${polisis.bad},${privacy},${score.s},${score.e},${oldscore},${siteGrade},${enhancedGrade}`
+
     // console.log(csvtext)
 
     appendLine(csvPath, `${csvtext}\n`)
@@ -252,7 +420,21 @@ hist_e.forEach( (x, i) => {
 
 fs.writeFileSync(hist_ePath, hist_e_text, 'utf8');
 
+console.log(JSON.stringify(hist_grades))
 
+let hist_grades_text = 'grade,site grade,enhanced grade\n'
+// Object.keys(hist_grades).forEach( (x, i) => {
+let gseen = { }
+for (let gradeOrder = 0; gradeOrder < 31; gradeOrder++) {
 
+    let g = gradeMap[gradeOrder];
+
+    if (!gseen[g])
+        hist_grades_text += `${g},${hist_grades[g]},${hist_grades_e[g]}\n`
+    
+    gseen[g] = true
+}
+
+fs.writeFileSync(hist_gradesPath, hist_grades_text, 'utf8');
 
 
