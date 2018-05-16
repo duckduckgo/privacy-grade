@@ -28,7 +28,7 @@ const prev = require('./prev')
 const whole = 10 // 5
 const half = 5 // 3 
 const none = 0
-const privacyUnknown = 3
+const privacyUnknown = 2
 
 let hist = new Array(100)
 let hist_e = new Array(100)
@@ -71,35 +71,35 @@ var trackerScore = (site) => {
             return 0
 
         // baseline min
-        if (p < .01)
+        if (p < .1)
             return 1
 
-        if (p < 0.1)
+        if (p < 1)
             return 2
 
-        if (p < 1)
+        if (p < 5)
             return 3
 
         // 1 - 5
-        if (p < 5)
+        if (p < 10)
             return 4
 
-        if (p < 10)
+        if (p < 15)
             return 5
 
-        if (p < 15)
+        if (p < 20)
             return 6
 
-        if (p < 20)
+        if (p < 30)
             return 7
 
         // if (p < 25)
         //     return 7
 
-        if (p < 50)
+        if (p < 45)
             return 8
 
-        if (p < 75)
+        if (p < 66)
             return 9
 
 
@@ -169,8 +169,8 @@ let hist_grades_e = {
 let gradeMap = {
     0: 'A+',
     1: 'A',
-    2: 'A-',
 
+    2: 'B+',
     3: 'B+',
 
     4: 'B',
@@ -181,9 +181,9 @@ let gradeMap = {
     9: 'B',
     10:'B',
 
-    11:'B-',
-    12:'B-',
-    13:'B-',
+    11:'B',
+    12:'B',
+    13:'B',
 
     14:'C',
     15:'C',
