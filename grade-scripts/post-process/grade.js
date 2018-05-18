@@ -24,6 +24,8 @@ const hist_ePath = `${output}.hist-e.csv`;
 const hist_gradesPath = `${output}.hist-grades.csv`;
 
 const prev = require('./prev')
+const polisisMap = require('./polisismap')
+const tosdrScores = require('./tosdr-scores')
 
 const whole = 10 // 5
 const half = 5 // 3 
@@ -55,18 +57,6 @@ var trackerScore = (site) => {
 
     let normalizeTracker = (p) => {
 
-
-        // .01
-        // .1
-        // .5
-        // 1
-        // 3
-        // 5
-        // 10
-        // 25
-        // 50
-        // 70
-
         if (!p)
             return 0
 
@@ -93,17 +83,12 @@ var trackerScore = (site) => {
         if (p < 30)
             return 7
 
-        // if (p < 25)
-        //     return 7
-
         if (p < 45)
             return 8
 
         if (p < 66)
             return 9
 
-
-        // console.log(`map score fall through: returning ${p}`)
         return 10
     }
 
@@ -167,7 +152,7 @@ let hist_grades_e = {
 
 // map score to grade
 let gradeMap = {
-    0: 'A+',
+    0: 'A',
     1: 'A',
 
     2: 'B+',
@@ -206,13 +191,13 @@ let gradeMap = {
     30:'D-'
 }
 
+
 // map grade to score
 let scoreMap = { }
 Object.keys(gradeMap).forEach( (s) => {
     scoreMap[gradeMap[s]] = s
 })
 
-// const maxGradeScore = 30
 
 // turn a score into a grade
 let scoreToGrade= (s) => {
@@ -225,16 +210,18 @@ let scoreToGrade= (s) => {
 
 }
 
-let gradeToScore= (g) => {
-    let s = scoreMap(g)
+/*
+    let gradeToScore= (g) => {
+        let s = scoreMap(g)
 
-    if (s)
-        return s
+        if (s)
+            return s
 
-    console.log(`gradeToScore: '${g}' unknown or invalid`)
+        console.log(`gradeToScore: '${g}' unknown or invalid`)
 
-    return 'X'
-}
+        return 'X'
+    }
+*/
 
 let mapPrivacy = (p) => {
 
@@ -261,54 +248,11 @@ let mapPrivacy = (p) => {
 
 
 
-function _getDetailsData (jsonText) {
-    let siteData = JSON.parse(jsonText);
+let calculateGrade = (fileName) => {
 
-    let detailsData = siteData.map((site) => ({
-        url: site.url,
-        details: site.decisions
-    }));
-
-    return JSON.stringify(detailsData, null, "  ");
-}
-
-
-let csvDetails = (details) => {
-    let cols = ''
-    const col = (s) => { return `${s},` }
-
-    // assuming that the data is in column header order
-    // that is the order it is in the algorithm
-    // if that changes, we need to change this, will have to order by d.why
-    details.forEach( (d) => {
-
-        // for the final one we'll add the final grade as another column
-        if (d.why.match(/final grade/)) {
-            cols += col(d.index)
-            cols += d.grade
-        }
-        else {
-            cols += col(d.change)
-        }
-    })
-    return cols;
-};
-
-let csvSimple = (simpleArray) => {
-    let cols = ''
-    simpleArray.forEach( (el) => {
-        cols += `${el},`
-    })
-
-    if (cols.length > 1)
-        return cols.substring(0, cols.length - 1);
-
-    return ''
-};
-
-let getCSVData = (fileName) => {
     if (fileName.match(/^\./))
         return
+
     let siteName = fileName.replace(/\.json$/, '');
     let jsonText = fs.readFileSync(inputPath + fileName, 'utf8');
 
@@ -321,30 +265,45 @@ let getCSVData = (fileName) => {
         return;
     }
 
-    // let csvtext = `${siteName},${site.totalBlocked},${csvDetails(site.decisions)}`
-
-    // let score_blocked = 0
-    // let score_unblocked = 0
     let tscore = trackerScore(site)
     let score = {s:0, e: 0}
     let grade = 'X'
     let polisis = site.polisis || { good:0, bad:0}
     let https = site.hasHTTPS  ? none : whole
     let privacy = 0 //site.tosdr ? site.tosdr.badScore : 0
-    let tosdr = 0
+    let tosdr = false
     let oldscore = site.beforeIndex || -1 
     
 
-    if (site.tosdr && site.tosdr.badScore)
-        tosdr = site.tosdr.badScore //* 0.25
+    if (polisisMap[site.domain]) {
+        polisis.bad = polisisMap[site.domain]
+        console.log(`polisis found for ${site.domain}: ${polisis.bad}`)
+    }
 
-    privacy = mapPrivacy(tosdr) + polisis.bad
+    if (tosdrScores[siteName]) {
+        tosdr = tosdrScores[siteName][0]
+        console.log(chalk.green(`${siteName} tosdr: ${tosdr}`))
+    }
+
+    // if (site.tosdr && site.tosdr.badScore)
+    //     tosdr = site.tosdr.badScore //* 0.25
+
+    // privacy = mapPrivacy(tosdr) + polisis.bad
+    
+   
+    if (tosdr !== false) {
+        privacy = tosdr
+        console.log(chalk.red(`Using TOSDR for ${siteName}: ${tosdr}`))
+    }
+    else
+        privacy = polisis.bad
+ 
     if (privacy > 10)
         privacy = 10
 
     // unknown privacy practices
     if (privacy === 0 && polisis.good === 0 && polisis.bad === 0)
-        privacy = privacyUnknown //half
+        privacy = privacyUnknown
 
 
     // enhanced score excludes blocked trackers
@@ -355,10 +314,23 @@ let getCSVData = (fileName) => {
     // site score includes blocked trackers
     score.s = score.e + tscore.b
 
+
+    /*
+     *
+     * collect histogram data
+     *
+     */
+
     // score.s_rounded = Math.round(score.s / 10, 1) * 10
-    score.s_rounded = Math.round(score.s / 5, 1) * 5
     // score.s_rounded = Math.round(score.s / 2, 1) * 2
     // score.s_rounded = Math.round(score.s)
+
+
+    // if (score.s < 5)
+        score.s_rounded = score.s
+    // else
+    //     score.s_rounded = Math.round(score.s / 5, 1) * 5
+
     score.e_rounded = Math.round(score.e / 5, 1) * 5
     // score.e_rounded = score.e
 
@@ -382,6 +354,12 @@ let getCSVData = (fileName) => {
     hist_grades_e[enhancedGrade] += 1;
 
 
+    /*
+     *
+     * output
+     *
+     */
+
     //               domain,      requests,         site pscore,  blocked score,   unblocked score, https, tosdr, polisis, privacy ,      site,   enhanced,   oldscore, grade, e grade\n'
     let csvtext = `${siteName},${site.totalBlocked},${tscore.site},${tscore.b},${tscore.n},${https},${tosdr},${polisis.bad},${privacy},${score.s},${score.e},${oldscore},${siteGrade},${enhancedGrade}`
 
@@ -402,7 +380,7 @@ appendLine(csvPath, `${csvHeaders}\n`)
 
 const files = fs.readdirSync(inputPath);
 
-files.forEach(getCSVData);
+files.forEach(calculateGrade);
 
 // write histogram
 let hist_text = 'site score,total\n'
