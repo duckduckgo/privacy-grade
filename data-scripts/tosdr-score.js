@@ -26,7 +26,7 @@ let assignScore = (site) => {
     if (score > 150)
         return 10
 
-    if (score > 100)
+    if (score >= 100)
         return 7
 
     return 5
