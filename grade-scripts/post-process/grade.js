@@ -321,18 +321,11 @@ let calculateGrade = (fileName) => {
      *
      */
 
-    // score.s_rounded = Math.round(score.s / 10, 1) * 10
-    // score.s_rounded = Math.round(score.s / 2, 1) * 2
-    // score.s_rounded = Math.round(score.s)
+    // score.s_rounded = Math.round(score.s / 5, 1) * 5
+    score.s_rounded = score.s
 
-
-    // if (score.s < 5)
-        score.s_rounded = score.s
-    // else
-    //     score.s_rounded = Math.round(score.s / 5, 1) * 5
-
-    score.e_rounded = Math.round(score.e / 5, 1) * 5
-    // score.e_rounded = score.e
+    // score.e_rounded = Math.round(score.e / 5, 1) * 5
+    score.e_rounded = score.e
 
     if (!hist[score.s_rounded])
         hist[score.s_rounded] = 0
