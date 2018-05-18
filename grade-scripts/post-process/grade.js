@@ -10,11 +10,13 @@ const csvHeaders = 'domain,requests,site pscore,blocked score,unblocked score,ht
 program
     .option('-i, --input <name>', 'The name to use when looking for sites, e.g. "test" will look in "test-sites"')
     .option('-o, --output <name>', 'Output name, e.g. "test" will output files at "test-grades"')
+    .option('-f, --file <name>', 'Allow processing a subset of dumped site data, defined in a file')
     .parse(process.argv)
 
 
 const input = program.input
 const output = program.output
+const fileForSubset = program.file
 
 const inputPath = `${process.cwd()}/${input}-grades/`;
 
@@ -26,6 +28,7 @@ const hist_gradesPath = `${output}.hist-grades.csv`;
 const prev = require('./prev')
 const polisisMap = require('./polisismap')
 const tosdrScores = require('./tosdr-scores')
+
 
 const whole = 10 // 5
 const half = 5 // 3 
@@ -254,6 +257,12 @@ let calculateGrade = (fileName) => {
         return
 
     let siteName = fileName.replace(/\.json$/, '');
+
+    if (!fs.existsSync(inputPath + fileName)) {
+        console.log(chalk.red(`${inputPath + fileName} does not exist`))
+        return
+    }
+
     let jsonText = fs.readFileSync(inputPath + fileName, 'utf8');
 
     let site = JSON.parse(jsonText);
@@ -371,9 +380,37 @@ try {
 // add the headings for the CSV
 appendLine(csvPath, `${csvHeaders}\n`)
 
-const files = fs.readdirSync(inputPath);
 
-files.forEach(calculateGrade);
+let siteList = fs.readFileSync(fileForSubset, { encoding: 'utf8' }) 
+    .trim()
+    .split('\n')
+
+siteList.forEach( (n) => {
+
+    calculateGrade(`${n}.json`)
+    // console.log(`${inputPath} ---- ${n}.json`)
+
+})
+
+// let siteDataFiles = fs.readdirSync(inputPath)
+// if (fileForSubset) {
+//     let sitesForSubset = fs.readFileSync(fileForSubset, { encoding: 'utf8' })
+//         .trim()
+//         .split('\n')
+
+//     siteDataFiles = siteDataFiles.filter((fileName) => {
+//         let hostname = fileName.replace(/\.json$/, '')
+//         return sitesForSubset.indexOf(hostname) > -1
+//     })
+// }
+
+
+// const files = fs.readdirSync(inputPath);
+// files.forEach(calculateGrade);
+
+// siteDataFiles.forEach(calculateGrade);
+
+
 
 // write histogram
 let hist_text = 'site score,total\n'
