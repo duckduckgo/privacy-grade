@@ -4,7 +4,7 @@ const log = console.log;
 const chalk = require('chalk');
 // const name = process.argv[2];
 //    csvHeaders = 'domain,requests,initial,is major,tosdr,in major,https,obscure,blocked,total,grade\n'
-const csvHeaders = 'domain,requests,site pscore,blocked score,unblocked score,https,tosdr,polisis,calculated privacy,site,enhanced,oldscore,site grade, enhanced grade'
+const csvHeaders = 'domain,req blocked,site pscore,blocked score,unblocked score,https,tosdr,polisis,calculated privacy,site,enhanced,site grade, enhanced grade'
 
 
 program
@@ -281,7 +281,6 @@ let calculateGrade = (fileName) => {
     let https = site.hasHTTPS  ? none : whole
     let privacy = 0 //site.tosdr ? site.tosdr.badScore : 0
     let tosdr = false
-    let oldscore = site.beforeIndex || -1 
     
 
     if (polisisMap[site.domain]) {
@@ -362,8 +361,8 @@ let calculateGrade = (fileName) => {
      *
      */
 
-    //               domain,      requests,         site pscore,  blocked score,   unblocked score, https, tosdr, polisis, privacy ,      site,   enhanced,   oldscore, grade, e grade\n'
-    let csvtext = `${siteName},${site.totalBlocked},${tscore.site},${tscore.b},${tscore.n},${https},${tosdr},${polisis.bad},${privacy},${score.s},${score.e},${oldscore},${siteGrade},${enhancedGrade}`
+    //               domain,      blocked,         site pscore,  blocked score,   unblocked score, https, tosdr, polisis, privacy ,      site,   enhanced,    grade, e grade\n'
+    let csvtext = `${siteName},${site.totalBlocked},${tscore.site},${tscore.b},${tscore.n},${https},${tosdr},${polisis.bad},${privacy},${score.s},${score.e},${siteGrade},${enhancedGrade}`
 
     // console.log(csvtext)
 
