@@ -39,12 +39,7 @@ let hist = new Array(100)
 let hist_e = new Array(100)
 
 
-// store examples of each type of thing
-// grade, grade change
-// 'C_' = site C
-// '_B+' = enhanced B+
-// 'C_B+' = site C, enhanced B+
-
+// store examples of site grades, enhanced grades, and grade spans
 let examples = {
     s: { }, // site grades
     e: { }, // enhanced grades
