@@ -16,7 +16,7 @@ program
 
 const input = program.input
 const output = program.output
-const fileForSubset = program.file
+const fileList = program.file
 
 const inputPath = `${process.cwd()}/${input}-grades/`;
 
@@ -24,11 +24,11 @@ const csvPath  = `${output}.csv`;
 const histPath = `${output}.hist.csv`;
 const hist_ePath = `${output}.hist-e.csv`;
 const hist_gradesPath = `${output}.hist-grades.csv`;
+const examplesPath = `${output}.examples.csv`;
 
 const prev = require('./prev')
 const polisisMap = require('./polisismap')
 const tosdrScores = require('./tosdr-scores')
-
 
 const whole = 10 // 5
 const half = 5 // 3 
@@ -37,6 +37,21 @@ const privacyUnknown = 2
 
 let hist = new Array(100)
 let hist_e = new Array(100)
+
+
+// store examples of each type of thing
+// grade, grade change
+// 'C_' = site C
+// '_B+' = enhanced B+
+// 'C_B+' = site C, enhanced B+
+
+let examples = {
+    s: { }, // site grades
+    e: { }, // enhanced grades
+    span: { } // A_B, D-_C, etc.
+}
+
+
 
 const appendLine = (fn,text) => {
     try {
@@ -138,6 +153,38 @@ let hist_grades = {
 }
 
 let hist_grades_e = {
+    'A+': 0,
+    'A': 0,
+    'A-': 0,
+    'B': 0,
+    'B+': 0,
+    'B-': 0,
+    'C+': 0,
+    'C': 0,
+    'C-': 0,
+    'D+': 0,
+    'D': 0,
+    'D-': 0,
+    'F': 0
+}
+
+let old_grades = {
+    'A+': 0,
+    'A': 0,
+    'A-': 0,
+    'B': 0,
+    'B+': 0,
+    'B-': 0,
+    'C+': 0,
+    'C': 0,
+    'C-': 0,
+    'D+': 0,
+    'D': 0,
+    'D-': 0,
+    'F': 0
+}
+
+let old_grades_e = {
     'A+': 0,
     'A': 0,
     'A-': 0,
@@ -354,6 +401,14 @@ let calculateGrade = (fileName) => {
         hist_grades_e[enhancedGrade] = 0
     hist_grades_e[enhancedGrade] += 1;
 
+    if (!old_grades[site.before])
+        old_grades[site.before] = 0
+    old_grades[site.before] += 1;
+
+    if (!old_grades_e[site.after])
+        old_grades_e[site.after] = 0
+    old_grades_e[site.after] += 1;
+
 
     /*
      *
@@ -367,6 +422,37 @@ let calculateGrade = (fileName) => {
     // console.log(csvtext)
 
     appendLine(csvPath, `${csvtext}\n`)
+
+
+    /*
+     * record some examples
+     * use random shuffling of input domains to produce
+     * a variety of output examples.
+     * eg shuf 25k.txt | head -500 > 500random.txt
+     */
+   
+
+    if (!examples.s[siteGrade]) {
+        examples.s[siteGrade] = csvtext
+
+        appendLine(examplesPath, `site ${siteGrade},${csvtext}\n`)
+        return
+    }
+
+    if (!examples.e[enhancedGrade]) {
+        examples.e[enhancedGrade] = csvtext
+        appendLine(examplesPath, `enhanced ${enhancedGrade},${csvtext}\n`)
+        return
+    }
+
+    let span = `${siteGrade}_${enhancedGrade}`
+
+    if (!examples.span[span]) {
+        examples.span[span] = csvtext
+        appendLine(examplesPath, `span ${siteGrade} to ${enhancedGrade},${csvtext}\n`)
+        // return
+    }
+
 };
 
 // nullify results from previous runs
@@ -375,40 +461,33 @@ try {
 } catch(e) {
     // ah well
 }
+try {
+    fs.unlinkSync(examplesPath);
+} catch(e) {
+    // ah well
+}
 
 // add the headings for the CSV
 appendLine(csvPath, `${csvHeaders}\n`)
+appendLine(examplesPath, `type,${csvHeaders}\n`)
 
 
-let siteList = fs.readFileSync(fileForSubset, { encoding: 'utf8' }) 
-    .trim()
-    .split('\n')
+if (fileList) {
+    let siteList = fs.readFileSync(fileList, { encoding: 'utf8' }) 
+        .trim()
+        .split('\n')
 
-siteList.forEach( (n) => {
+    siteList.forEach( (n) => {
 
-    calculateGrade(`${n}.json`)
-    // console.log(`${inputPath} ---- ${n}.json`)
+        calculateGrade(`${n}.json`)
+        // console.log(`${inputPath} ---- ${n}.json`)
 
-})
-
-// let siteDataFiles = fs.readdirSync(inputPath)
-// if (fileForSubset) {
-//     let sitesForSubset = fs.readFileSync(fileForSubset, { encoding: 'utf8' })
-//         .trim()
-//         .split('\n')
-
-//     siteDataFiles = siteDataFiles.filter((fileName) => {
-//         let hostname = fileName.replace(/\.json$/, '')
-//         return sitesForSubset.indexOf(hostname) > -1
-//     })
-// }
-
-
-// const files = fs.readdirSync(inputPath);
-// files.forEach(calculateGrade);
-
-// siteDataFiles.forEach(calculateGrade);
-
+    })
+}
+else {
+    let files = fs.readdirSync(inputPath);
+    files.forEach(calculateGrade);
+}
 
 
 // write histogram
@@ -429,7 +508,7 @@ fs.writeFileSync(hist_ePath, hist_e_text, 'utf8');
 
 console.log(JSON.stringify(hist_grades))
 
-let hist_grades_text = 'grade,site grade,enhanced grade\n'
+let hist_grades_text = 'grade,site grade,enhanced grade,old site,old enhanced\n'
 // Object.keys(hist_grades).forEach( (x, i) => {
 let gseen = { }
 for (let gradeOrder = 0; gradeOrder < 31; gradeOrder++) {
@@ -437,7 +516,7 @@ for (let gradeOrder = 0; gradeOrder < 31; gradeOrder++) {
     let g = gradeMap[gradeOrder];
 
     if (!gseen[g])
-        hist_grades_text += `${g},${hist_grades[g]},${hist_grades_e[g]}\n`
+        hist_grades_text += `${g},${hist_grades[g]},${hist_grades_e[g]},${old_grades[g]},${old_grades_e[g]}\n`
     
     gseen[g] = true
 }
