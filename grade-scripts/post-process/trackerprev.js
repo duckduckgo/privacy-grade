@@ -111,7 +111,7 @@ files.forEach( (fileName) => {
 
             Object.keys(site.trackersNotBlocked[k]).forEach( (url) => {
 
-                let parentEntity = entityMap[url] || `[${k}]`
+                let parentEntity = entityMap[url] || k
 
                 // console.log(`    ${k} (${url}) entityMap: '${parentEntity}'`)
 
