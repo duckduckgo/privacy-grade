@@ -65,14 +65,14 @@ files.forEach( (fileName) => {
     //             "block": true,
     //             "reason": "trackersWithParentCompany"
 
-    console.log('  blocked:')
+    // console.log('  blocked:')
     Object.keys(site.trackersBlocked).forEach( (k) => {
 
         Object.keys(site.trackersBlocked[k]).forEach( (url) => {
 
             let parentEntity = entityMap[url] || k
 
-            console.log(`    ${k} (${url}) entityMap: '${parentEntity}'`)
+            // console.log(`    ${k} (${url}) entityMap: '${parentEntity}'`)
 
             addParent(parentEntity, siteName)
 
@@ -94,31 +94,17 @@ files.forEach( (fileName) => {
 
     })
     if (site.trackersNotBlocked) {
-        console.log('  not blocked:')
+        // console.log('  not blocked:')
         Object.keys(site.trackersNotBlocked).forEach( (k) => {
 
             Object.keys(site.trackersNotBlocked[k]).forEach( (url) => {
 
                 let parentEntity = entityMap[url] || `[${k}]`
 
-                console.log(`    ${k} (${url}) entityMap: '${parentEntity}'`)
+                // console.log(`    ${k} (${url}) entityMap: '${parentEntity}'`)
 
                 addParent(parentEntity, siteName)
 
-            /*
-            let pd = `${k}${siteName}`;
-
-            if (!parent_domain[pd])
-                parent_domain[pd] = []
-
-            // for each tracker by parent
-            Object.keys(site.trackersBlocked[k]).forEach( (pt) => {
-                if (parent_domain[pd].indexOf(pt) == -1) {
-                    parent_domain[pd].push(pt)
-                    console.log(`        ${pt}`)
-                }
-            })
-            */
             })
 
         })
