@@ -37,7 +37,7 @@ files.forEach( (fileName) => {
     if (!site)
         return
 
-    console.log(`${siteName}:`)
+    // console.log(`${siteName}:`)
 
 
     let addParent = (p, child) => {
@@ -56,6 +56,11 @@ files.forEach( (fileName) => {
 
     }
 
+    // only add one parent entity per site
+    // sometimes there are several parent-owned trackers per site
+    // for both blocked and not blocked
+    let localParents = { }
+
     // "trackersBlocked": {
     //     "InsightExpress": {
     //         "insightexpressai.com": {
@@ -68,13 +73,20 @@ files.forEach( (fileName) => {
     // console.log('  blocked:')
     Object.keys(site.trackersBlocked).forEach( (k) => {
 
+
         Object.keys(site.trackersBlocked[k]).forEach( (url) => {
 
             let parentEntity = entityMap[url] || k
 
             // console.log(`    ${k} (${url}) entityMap: '${parentEntity}'`)
 
-            addParent(parentEntity, siteName)
+            // only add one parent entity per site
+            // sometimes there are several parent-owned trackers per site
+            if (!localParents[parentEntity])
+                addParent(parentEntity, siteName)
+
+            localParents[parentEntity] = true
+            
 
         /*
         let pd = `${k}${siteName}`;
@@ -103,7 +115,10 @@ files.forEach( (fileName) => {
 
                 // console.log(`    ${k} (${url}) entityMap: '${parentEntity}'`)
 
-                addParent(parentEntity, siteName)
+                if (!localParents[parentEntity])
+                    addParent(parentEntity, siteName)
+
+                localParents[parentEntity] = true
 
             })
 
