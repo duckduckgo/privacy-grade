@@ -60,7 +60,7 @@ const appendLine = (fn,text) => {
 
 var trackerScore = (site) => {
 
-    // console.log(`---\n${site.domain} => ${Object.keys(site.trackersBlocked).length} parent: ${site.parentCompany}`)
+    console.log(`---\n${site.domain} => ${Object.keys(site.trackersBlocked).length} parent: ${site.parentCompany}`)
 
     let parent = 0
 
@@ -71,7 +71,7 @@ var trackerScore = (site) => {
     let normalizeTracker = (p) => {
 
         if (!p)
-            return 0
+            return 1
 
         // baseline min
         if (p < .1)
@@ -112,10 +112,10 @@ var trackerScore = (site) => {
         let s = 0
         Object.keys(l).forEach( co => {
 
-            let p = prev[co] || 0
+            let p = prev[co] || 1 // minimum of 1
             let np = normalizeTracker(p)
 
-            // console.log(`   ${co}: ${p} -> ${np}`)
+            console.log(`   ${co}: ${p} -> ${np}`)
 
             s += np
 
