@@ -2,6 +2,14 @@ const fs = require('fs');
 const name = process.argv.splice(2)
 const inputPath = `${process.cwd()}/${name}-grades/`;
 
+const entityMap = require('../../data/generated/entity-map')
+
+let reverseEntity = { }
+
+Object.keys(entityMap).forEach( (domain) => {
+    reverseEntity[entityMap[domain]] = domain
+})
+
 // parent company -> site
 let parents = { }
 
@@ -17,22 +25,56 @@ const files = fs.readdirSync(inputPath);
 files.forEach( (fileName) => {
     let siteName = fileName.replace(/\.json$/, '');
     let jsonText = fs.readFileSync(inputPath + fileName, 'utf8');
-    let site = JSON.parse(jsonText);
+    let site = false
+    
+    try {
+        site = JSON.parse(jsonText);
+    } catch (e) {
+        console.log(`bail on ${fileName}`)
+        return
+    }
 
-    Object.keys(site.trackersBlocked).forEach( (k) => {
-        // console.log(`    ${k}`)
+    if (!site)
+        return
 
-        if (!parents[k])
-            parents[k] = [ ]
+    console.log(`${siteName}:`)
 
-        if (!parentCount[k])
-            parentCount[k] = 0
 
-        parentCount[k]++
+    let addParent = (p, child) => {
+        if (!parents[p])
+            parents[p] = [ ]
 
-        if (parents[k].indexOf(siteName) == -1) {
-            parents[k].push(siteName)
+        if (!parentCount[p])
+            parentCount[p] = 0
+
+        parentCount[p]++
+
+        if (parents[p].indexOf(child) == -1) {
+            parents[p].push(child)
         }
+
+
+    }
+
+    // "trackersBlocked": {
+    //     "InsightExpress": {
+    //         "insightexpressai.com": {
+    //             "parentCompany": "InsightExpress",
+    //             "url": "insightexpressai.com",
+    //             "type": "Advertising",
+    //             "block": true,
+    //             "reason": "trackersWithParentCompany"
+
+    console.log('  blocked:')
+    Object.keys(site.trackersBlocked).forEach( (k) => {
+
+        Object.keys(site.trackersBlocked[k]).forEach( (url) => {
+
+            let parentEntity = entityMap[url] || k
+
+            console.log(`    ${k} (${url}) entityMap: '${parentEntity}'`)
+
+            addParent(parentEntity, siteName)
 
         /*
         let pd = `${k}${siteName}`;
@@ -48,7 +90,39 @@ files.forEach( (fileName) => {
             }
         })
         */
+        })
+
     })
+    if (site.trackersNotBlocked) {
+        console.log('  not blocked:')
+        Object.keys(site.trackersNotBlocked).forEach( (k) => {
+
+            Object.keys(site.trackersNotBlocked[k]).forEach( (url) => {
+
+                let parentEntity = entityMap[url] || `[${k}]`
+
+                console.log(`    ${k} (${url}) entityMap: '${parentEntity}'`)
+
+                addParent(parentEntity, siteName)
+
+            /*
+            let pd = `${k}${siteName}`;
+
+            if (!parent_domain[pd])
+                parent_domain[pd] = []
+
+            // for each tracker by parent
+            Object.keys(site.trackersBlocked[k]).forEach( (pt) => {
+                if (parent_domain[pd].indexOf(pt) == -1) {
+                    parent_domain[pd].push(pt)
+                    console.log(`        ${pt}`)
+                }
+            })
+            */
+            })
+
+        })
+    }
 });
 
 let csvText = 'network,count,percent\n'
