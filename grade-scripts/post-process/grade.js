@@ -39,6 +39,12 @@ let hist = new Array(100)
 let hist_e = new Array(100)
 
 
+// read sites in the top 25k that do not support autoupgrade
+let autext = fs.readFileSync("25k-https-autoupgrade.txt", "utf8")
+let autoUpgrade = new Set (autext.split(/\r?\n/))
+
+
+
 // store examples of site grades, enhanced grades, and grade spans
 let examples = {
     s: { }, // site grades
@@ -60,7 +66,7 @@ const appendLine = (fn,text) => {
 
 var trackerScore = (site) => {
 
-    console.log(`---\n${site.domain} => ${Object.keys(site.trackersBlocked).length} parent: ${site.parentCompany}`)
+    // console.log(`---\n${site.domain} => ${Object.keys(site.trackersBlocked).length} parent: ${site.parentCompany}`)
 
     let parent = 0
 
@@ -115,7 +121,7 @@ var trackerScore = (site) => {
             let p = prev[co] || 1 // minimum of 1
             let np = normalizeTracker(p)
 
-            console.log(`   ${co}: ${p} -> ${np}`)
+            // console.log(`   ${co}: ${p} -> ${np}`)
 
             s += np
 
@@ -319,31 +325,63 @@ let calculateGrade = (fileName) => {
     let tscore = trackerScore(site)
     let score = {s:0, e: 0}
     let grade = 'X'
+
+    /*
+     * HTTPS
+     */
+
+    let https = 0
+    // sites in this list 
+    let au = autoUpgrade.has(site.domain)
+
+    // site is in the https auto upgrade list
+    // this is good
+    if (au) {
+        https = 0
+    }
+    // site has https, but no auto upgrade
+    else if (site.hasHTTPS && !au) {
+        https = 2
+    }
+    // no https, no auto upgrade
+    else if (!site.hasHTTPS && !au) {
+        https = 10
+    }
+
+    /*
+     * privacy policy
+     */
+
     let polisis = site.polisis || { good:0, bad:0}
-    let https = site.hasHTTPS  ? none : whole
+    // let https = site.hasHTTPS  ? none : whole
     let privacy = 0 //site.tosdr ? site.tosdr.badScore : 0
     let tosdr = false
     
+    // Polisis
+    // use score for parent company if present
+    // this is similar to the tracker network effect concept
 
-    if (polisisMap[site.domain]) {
-        polisis.bad = polisisMap[site.domain]
-        console.log(`polisis found for ${site.domain}: ${polisis.bad}`)
+    if (site.parentCompany && polisisMap[site.parentCompany]) {
+        polisis.bad = polisisMap[site.parentCompany]
+        // console.log(`polisis using parent company for ${site.domain} -> ${site.parentCompany}: ${polisis.bad}`)
     }
+    else if (polisisMap[site.domain]) {
+        polisis.bad = polisisMap[site.domain]
+        // console.log(`polisis found for ${site.domain}: ${polisis.bad}`)
+    }
+
+    // tosdr
 
     if (tosdrScores[siteName]) {
         tosdr = tosdrScores[siteName][0]
-        console.log(chalk.green(`${siteName} tosdr: ${tosdr}`))
+        // console.log(chalk.green(`${siteName} tosdr: ${tosdr}`))
     }
 
-    // if (site.tosdr && site.tosdr.badScore)
-    //     tosdr = site.tosdr.badScore //* 0.25
-
     // privacy = mapPrivacy(tosdr) + polisis.bad
-    
    
     if (tosdr !== false) {
         privacy = tosdr
-        console.log(chalk.red(`Using TOSDR for ${siteName}: ${tosdr}`))
+        // console.log(chalk.red(`Using TOSDR for ${siteName}: ${tosdr}`))
     }
     else
         privacy = polisis.bad
@@ -355,15 +393,19 @@ let calculateGrade = (fileName) => {
     if (privacy === 0 && polisis.good === 0 && polisis.bad === 0)
         privacy = privacyUnknown
 
+    /*
+     * calculate final score
+     */
 
     // enhanced score excludes blocked trackers
-    // this does not yet account for whether we upgraded https
-    //        blocked     site prev    https   polisis       scaled tosdr
-    score.e = tscore.n + tscore.site + https + privacy // polisis.bad + tosdr 
+    //        blocked     site prev    https
+    score.e = tscore.n + tscore.site + https + privacy
 
     // site score includes blocked trackers
     score.s = score.e + tscore.b
 
+    let siteGrade = scoreToGrade(score.s)
+    let enhancedGrade = scoreToGrade(score.e)
 
     /*
      *
@@ -385,8 +427,6 @@ let calculateGrade = (fileName) => {
         hist_e[score.e_rounded] = 0
     hist_e[score.e_rounded] += 1;
 
-    let siteGrade = scoreToGrade(score.s)
-    let enhancedGrade = scoreToGrade(score.e)
 
     if (!hist_grades[siteGrade])
         hist_grades[siteGrade] = 0
