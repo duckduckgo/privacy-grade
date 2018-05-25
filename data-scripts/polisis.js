@@ -2,6 +2,7 @@ const fs = require('fs')
 
 const fileName = process.argv[2];
 
+const outputFileName = 'data/generated/polisismap.json'
 
 let jsonText = fs.readFileSync(fileName, 'utf8');
 
@@ -137,5 +138,7 @@ Object.keys(domainMap).forEach( d => {
 
 })
 
-fs.writeFileSync(`polisismap.json`, JSON.stringify(domainMap))
+console.log(`writing to ${outputFileName}`)
+
+fs.writeFileSync(outputFileName, JSON.stringify(domainMap))
 
