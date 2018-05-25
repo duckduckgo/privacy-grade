@@ -4,7 +4,7 @@ const log = console.log;
 const chalk = require('chalk');
 // const name = process.argv[2];
 //    csvHeaders = 'domain,requests,initial,is major,tosdr,in major,https,obscure,blocked,total,grade\n'
-const csvHeaders = 'domain,req blocked,site pscore,blocked score,unblocked score,https,tosdr,polisis,calculated privacy,site,enhanced,site grade, enhanced grade'
+const csvHeaders = 'domain,req blocked,site pscore,blocked score,unblocked score,https-e,https-s,tosdr,polisis,calculated privacy,site,enhanced,site grade, enhanced grade'
 
 
 program
@@ -27,8 +27,8 @@ const hist_gradesPath = `${output}.hist-grades.csv`;
 const examplesPath = `${output}.examples.csv`;
 
 const prev = require('./prev')
-const polisisMap = require('./polisismap')
-const tosdrScores = require('./tosdr-scores')
+const polisisMap = require('../../data/generated/polisismap')
+const tosdrScores = require('../../data/generated/tosdr-scores')  //('./tosdr-scores')
 
 const whole = 10 // 5
 const half = 5 // 3 
@@ -47,6 +47,9 @@ let autoUpgrade = new Set (autext.split(/\r?\n/))
 
 // store examples of site grades, enhanced grades, and grade spans
 let examples = {
+    c: { }, // site counts
+    ce: { }, // enhanced counts
+    spanc: { }, // span counts
     s: { }, // site grades
     e: { }, // enhanced grades
     span: { } // A_B, D-_C, etc.
@@ -70,14 +73,22 @@ var trackerScore = (site) => {
 
     let parent = 0
 
-    if (site.parentCompany)
+    if (site.parentCompany) {
         parent = prev[site.parentCompany] || 0
+
+        // if (parent)
+        //     site.trackersNotBlocked[
+
+        if (!site.trackersNotBlocked[site.parentCompany])
+            site.trackersNotBlocked[site.parentCompany] = { } // contents irrelevant for normalizeTracker
+
+    }
 
 
     let normalizeTracker = (p) => {
 
         if (!p)
-            return 1
+            return 0
 
         // baseline min
         if (p < .1)
@@ -330,22 +341,25 @@ let calculateGrade = (fileName) => {
      * HTTPS
      */
 
-    let https = 0
-    // sites in this list 
+    let https_e = 0 // enhanced component
+    let https_s = 0 // site component
+
     let au = autoUpgrade.has(site.domain)
 
     // site is in the https auto upgrade list
     // this is good
     if (au) {
-        https = 0
+        https_s = 0 // no enhancement
     }
     // site has https, but no auto upgrade
     else if (site.hasHTTPS && !au) {
-        https = 2
+        https_e = 0  // enhance
+        https_s = 3  // lower for site score
     }
     // no https, no auto upgrade
     else if (!site.hasHTTPS && !au) {
-        https = 10
+        https_e = 10 // bad score = no enhancement.
+        https_s = 0  // don't double count
     }
 
     /*
@@ -372,7 +386,10 @@ let calculateGrade = (fileName) => {
 
     // tosdr
 
-    if (tosdrScores[siteName]) {
+
+    if (site.parentCompany && tosdrScores[site.parentCompany])
+        tosdr = tosdrScores[site.parentCompany][0]
+    else if (tosdrScores[siteName]) {
         tosdr = tosdrScores[siteName][0]
         // console.log(chalk.green(`${siteName} tosdr: ${tosdr}`))
     }
@@ -399,10 +416,11 @@ let calculateGrade = (fileName) => {
 
     // enhanced score excludes blocked trackers
     //        blocked     site prev    https
-    score.e = tscore.n + tscore.site + https + privacy
+    // score.e = tscore.n + tscore.site + https_e + privacy
+    score.e = tscore.n + https_e + privacy
 
     // site score includes blocked trackers
-    score.s = score.e + tscore.b
+    score.s = score.e + tscore.b + https_s
 
     let siteGrade = scoreToGrade(score.s)
     let enhancedGrade = scoreToGrade(score.e)
@@ -452,7 +470,7 @@ let calculateGrade = (fileName) => {
      */
 
     //               domain,      blocked,         site pscore,  blocked score,   unblocked score, https, tosdr, polisis, privacy ,      site,   enhanced,    grade, e grade\n'
-    let csvtext = `${siteName},${site.totalBlocked},${tscore.site},${tscore.b},${tscore.n},${https},${tosdr},${polisis.bad},${privacy},${score.s},${score.e},${siteGrade},${enhancedGrade}`
+    let csvtext = `${siteName},${site.totalBlocked},${tscore.site},${tscore.b},${tscore.n},${https_e},${https_s},${tosdr},${polisis.bad},${privacy},${score.s},${score.e},${siteGrade},${enhancedGrade}`
 
     // console.log(csvtext)
 
@@ -466,26 +484,49 @@ let calculateGrade = (fileName) => {
      * eg shuf 25k.txt | head -500 > 500random.txt
      */
    
+    if (!examples.c[siteGrade])
+        examples.c[siteGrade] = 0
 
-    if (!examples.s[siteGrade]) {
-        examples.s[siteGrade] = csvtext
+    let exs = `${siteGrade}${examples.c[siteGrade]}`
+    if (!examples.s[exs]) {
 
-        appendLine(examplesPath, `site ${siteGrade},${csvtext}\n`)
-        return
+        if (examples.c[siteGrade] < 4) {
+            examples.s[exs] = csvtext
+            examples.c[siteGrade]++
+
+            appendLine(examplesPath, `site ${siteGrade},${csvtext}\n`)
+        }
+
     }
 
-    if (!examples.e[enhancedGrade]) {
-        examples.e[enhancedGrade] = csvtext
-        appendLine(examplesPath, `enhanced ${enhancedGrade},${csvtext}\n`)
-        return
+    if (!examples.ce[enhancedGrade])
+        examples.ce[enhancedGrade] = 0
+
+    let exe = `${enhancedGrade}${examples.ce[enhancedGrade]}`
+    if (!examples.e[exe]) {
+        if (examples.ce[enhancedGrade] < 4) {
+            examples.e[exe] = csvtext
+            examples.ce[enhancedGrade]++
+
+            appendLine(examplesPath, `enhanced ${enhancedGrade},${csvtext}\n`)
+        }
     }
 
     let span = `${siteGrade}_${enhancedGrade}`
 
-    if (!examples.span[span]) {
-        examples.span[span] = csvtext
-        appendLine(examplesPath, `span ${siteGrade} to ${enhancedGrade},${csvtext}\n`)
-        // return
+    if (!examples.spanc[span])
+        examples.spanc[span] = 0
+
+    let exspan = `${span}${examples.spanc[span]}`
+
+    if (!examples.span[exspan]) {
+
+        if (examples.spanc[span] < 4) {
+            examples.span[exspan] = csvtext
+            examples.spanc[span]++
+
+            appendLine(examplesPath, `span ${siteGrade} to ${enhancedGrade},${csvtext}\n`)
+        }
     }
 
 };
@@ -559,3 +600,4 @@ for (let gradeOrder = 0; gradeOrder < 31; gradeOrder++) {
 fs.writeFileSync(hist_gradesPath, hist_grades_text, 'utf8');
 
 
+console.log(JSON.stringify(examples))
