@@ -6,3 +6,6 @@ npm-debug.log
 .cache
 *.map
 build/
+*.swp
+*.tar
+*.csv
