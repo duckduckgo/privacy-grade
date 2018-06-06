@@ -30,19 +30,74 @@ const prev = require('./prev')
 const polisisMap = require('../../data/generated/polisismap')
 const tosdrScores = require('../../data/generated/tosdr-scores')  //('./tosdr-scores')
 
-const whole = 10 // 5
-const half = 5 // 3 
-const none = 0
 const privacyUnknown = 2
+
+let x =
+    
+score: {
+    site: {
+        grade: 'C',
+        score: 15,
+        trackerScore: 10,  // blocked
+        httpsScore: 0      // supports https
+    },
+    enhanced: {
+        grade: 'B+',
+        score: 2,
+        trackerScore: 0, // unblocked
+        httpsScore: 3    // does not support autoupgrading
+
+    },
+    privacyPolicy: { // not specific to site v. enhanced
+        score: 2,
+        tosdr: {
+            score: false,
+            categories: [ .. ]
+        },
+        polisis: {
+            score: 0,
+            categories: [ .. ]
+        }
+    }
+
+}
+
+
+/* wip
+const defaults {
+    // unknownPrivacy: 2,
+    privacy: {
+        unknown: 2
+    },
+    https: {
+        full: 0,
+        noAutoUpgrade: 3,
+        none: 10
+    },
+    trackerTresholds: [
+        0,      // 0
+        0.1,    // 1
+        1,      // 2
+        5,      // 3
+        10,     // 4
+        15,     // 5
+        20,     // 6
+        30,     // 7
+        45,     // 8
+        66      // 9
+    ]
+}
+*/
 
 let hist = new Array(100)
 let hist_e = new Array(100)
 
 
-// read sites in the top 25k that do not support autoupgrade
-let autext = fs.readFileSync("25k-https-autoupgrade.txt", "utf8")
+// Create a Set of sites that support https autoupgrade
+// Until this is available on an endpoint, we're reading it for test purposes from the cwd
+// this might be big..
+let autext = fs.readFileSync("https_autoupgrade_list.txt", "utf8")
 let autoUpgrade = new Set (autext.split(/\r?\n/))
-
 
 
 // store examples of site grades, enhanced grades, and grade spans
@@ -226,11 +281,11 @@ let gradeMap = {
     7: 'B',
     8: 'B',
     9: 'B',
-    10:'B',
 
-    11:'B',
-    12:'B',
-    13:'B',
+    10:'C+',
+    11:'C+',
+    12:'C+',
+    13:'C+',
 
     14:'C',
     15:'C',
@@ -284,29 +339,6 @@ let scoreToGrade= (s) => {
         return 'X'
     }
 */
-
-let mapPrivacy = (p) => {
-
-    if (!p)
-        return 0
-
-    if (p <= 10)
-        return 1
-
-    if (p <= 2)
-        return 3
-
-    if (p <= 100)
-        return 7
-
-    if (p <= 200)
-        return 9
-
-    if (p > 200)
-        return 10
-
-    return 0
-}
 
 
 
@@ -367,7 +399,6 @@ let calculateGrade = (fileName) => {
      */
 
     let polisis = site.polisis || { good:0, bad:0}
-    // let https = site.hasHTTPS  ? none : whole
     let privacy = 0 //site.tosdr ? site.tosdr.badScore : 0
     let tosdr = false
     
@@ -384,8 +415,7 @@ let calculateGrade = (fileName) => {
         // console.log(`polisis found for ${site.domain}: ${polisis.bad}`)
     }
 
-    // tosdr
-
+    // ToS;DR
 
     if (site.parentCompany && tosdrScores[site.parentCompany])
         tosdr = tosdrScores[site.parentCompany][0]
@@ -394,8 +424,6 @@ let calculateGrade = (fileName) => {
         // console.log(chalk.green(`${siteName} tosdr: ${tosdr}`))
     }
 
-    // privacy = mapPrivacy(tosdr) + polisis.bad
-   
     if (tosdr !== false) {
         privacy = tosdr
         // console.log(chalk.red(`Using TOSDR for ${siteName}: ${tosdr}`))
@@ -487,45 +515,52 @@ let calculateGrade = (fileName) => {
     if (!examples.c[siteGrade])
         examples.c[siteGrade] = 0
 
-    let exs = `${siteGrade}${examples.c[siteGrade]}`
-    if (!examples.s[exs]) {
+    if (Math.random() < 0.01) {
+        let exs = `${siteGrade}${examples.c[siteGrade]}`
+        if (!examples.s[exs]) {
 
-        if (examples.c[siteGrade] < 4) {
-            examples.s[exs] = csvtext
-            examples.c[siteGrade]++
+            if (examples.c[siteGrade] < 4) {
+                examples.s[exs] = csvtext
+                examples.c[siteGrade]++
 
-            appendLine(examplesPath, `site ${siteGrade},${csvtext}\n`)
+                appendLine(examplesPath, `site ${siteGrade},${csvtext}\n`)
+            }
+
         }
-
     }
+
 
     if (!examples.ce[enhancedGrade])
         examples.ce[enhancedGrade] = 0
 
-    let exe = `${enhancedGrade}${examples.ce[enhancedGrade]}`
-    if (!examples.e[exe]) {
-        if (examples.ce[enhancedGrade] < 4) {
-            examples.e[exe] = csvtext
-            examples.ce[enhancedGrade]++
+    if (Math.random() < 0.01) {
+        let exe = `${enhancedGrade}${examples.ce[enhancedGrade]}`
+        if (!examples.e[exe]) {
+            if (examples.ce[enhancedGrade] < 4) {
+                examples.e[exe] = csvtext
+                examples.ce[enhancedGrade]++
 
-            appendLine(examplesPath, `enhanced ${enhancedGrade},${csvtext}\n`)
+                appendLine(examplesPath, `enhanced ${enhancedGrade},${csvtext}\n`)
+            }
         }
     }
 
-    let span = `${siteGrade}_${enhancedGrade}`
+    if (Math.random() < 0.01) {
+        let span = `${siteGrade}_${enhancedGrade}`
 
-    if (!examples.spanc[span])
-        examples.spanc[span] = 0
+        if (!examples.spanc[span])
+            examples.spanc[span] = 0
 
-    let exspan = `${span}${examples.spanc[span]}`
+        let exspan = `${span}${examples.spanc[span]}`
 
-    if (!examples.span[exspan]) {
+        if (!examples.span[exspan]) {
 
-        if (examples.spanc[span] < 4) {
-            examples.span[exspan] = csvtext
-            examples.spanc[span]++
+            if (examples.spanc[span] < 4) {
+                examples.span[exspan] = csvtext
+                examples.spanc[span]++
 
-            appendLine(examplesPath, `span ${siteGrade} to ${enhancedGrade},${csvtext}\n`)
+                appendLine(examplesPath, `span ${siteGrade} to ${enhancedGrade},${csvtext}\n`)
+            }
         }
     }
 
@@ -600,4 +635,3 @@ for (let gradeOrder = 0; gradeOrder < 31; gradeOrder++) {
 fs.writeFileSync(hist_gradesPath, hist_grades_text, 'utf8');
 
 
-console.log(JSON.stringify(examples))

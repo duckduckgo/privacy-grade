@@ -15,6 +15,9 @@ let parents = { }
 
 let parentCount = { }
 
+let blocked = { }
+let notblocked = { }
+
 
 // parentdomain => [ tracker url, tracker url ]
 // 'Yahoo!techcrunch.com': [ 'geo.yahoo.com' ]
@@ -40,14 +43,20 @@ files.forEach( (fileName) => {
     // console.log(`${siteName}:`)
 
 
-    let addParent = (p, child) => {
+    let addParent = (p, child, blockgroup) => {
         if (!parents[p])
             parents[p] = [ ]
+
 
         if (!parentCount[p])
             parentCount[p] = 0
 
+        // add to blocked or not blocked group
+        if (!blockgroup[p])
+            blockgroup[p] = 0
+
         parentCount[p]++
+        blockgroup[p]++
 
         if (parents[p].indexOf(child) == -1) {
             parents[p].push(child)
@@ -83,7 +92,7 @@ files.forEach( (fileName) => {
             // only add one parent entity per site
             // sometimes there are several parent-owned trackers per site
             if (!localParents[parentEntity])
-                addParent(parentEntity, siteName)
+                addParent(parentEntity, siteName, blocked)
 
             localParents[parentEntity] = true
             
@@ -116,7 +125,7 @@ files.forEach( (fileName) => {
                 // console.log(`    ${k} (${url}) entityMap: '${parentEntity}'`)
 
                 if (!localParents[parentEntity])
-                    addParent(parentEntity, siteName)
+                    addParent(parentEntity, siteName, notblocked)
 
                 localParents[parentEntity] = true
 
@@ -126,7 +135,7 @@ files.forEach( (fileName) => {
     }
 });
 
-let csvText = 'network,count,percent\n'
+let csvText = 'network,total count,blocked,not blocked,total percent\n'
 let parentPercent = { }
 
 let pround = (n, precision) => {
@@ -136,8 +145,12 @@ let pround = (n, precision) => {
 
 Object.keys(parentCount).forEach( (k) => {
 
-    parentPercent[k] = pround(parentCount[k] / files.length * 100, 2)
-    csvText += `${k},${parentCount[k]},${parentPercent[k]}\n`
+    parentPercent[k] = pround(parentCount[k] / files.length * 100, 3)
+    if (!blocked[k])
+        blocked[k] = 0
+    if (!notblocked[k])
+        notblocked[k] = 0
+    csvText += `${k},${parentCount[k]},${blocked[k]},${notblocked[k]},${parentPercent[k]}\n`
 })
 
 fs.writeFileSync(`${name}-networks.csv`, csvText)
