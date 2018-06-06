@@ -32,35 +32,6 @@ const tosdrScores = require('../../data/generated/tosdr-scores')  //('./tosdr-sc
 
 const privacyUnknown = 2
 
-let x =
-    
-score: {
-    site: {
-        grade: 'C',
-        score: 15,
-        trackerScore: 10,  // blocked
-        httpsScore: 0      // supports https
-    },
-    enhanced: {
-        grade: 'B+',
-        score: 2,
-        trackerScore: 0, // unblocked
-        httpsScore: 3    // does not support autoupgrading
-
-    },
-    privacyPolicy: { // not specific to site v. enhanced
-        score: 2,
-        tosdr: {
-            score: false,
-            categories: [ .. ]
-        },
-        polisis: {
-            score: 0,
-            categories: [ .. ]
-        }
-    }
-
-}
 
 
 /* wip
