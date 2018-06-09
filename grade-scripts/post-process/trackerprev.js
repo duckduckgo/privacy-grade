@@ -1,6 +1,21 @@
 const fs = require('fs');
-const name = process.argv.splice(2)
+const program = require('commander')
+
+program
+    .option('-i, --input <name>', 'The name to use when looking for sites, e.g. "test" will look in "test-sites"')
+    .option('-o, --output <name>', 'Output name, e.g. "test" will output files at "test-grades"')
+    .option('-f, --file <name>', 'Allow processing a subset of dumped site data, defined in a file')
+    .parse(process.argv)
+
+const name = program.input
+const output = program.output
 const inputPath = `${process.cwd()}/${name}-grades/`;
+const fileList = program.file
+
+const networksPathCsv = `${output}-networks-grouped.csv`
+
+// const name = process.argv.splice(2)
+// const inputPath = `${process.cwd()}/${name}-grades/`;
 
 const entityMap = require('../../data/generated/entity-map')
 
@@ -18,22 +33,55 @@ let parentCount = { }
 let blocked = { }
 let notblocked = { }
 
+//   {
+//      google: {
+//          '0': count, // count of presence on page in first 0-1k 
+//          '1': count
+//      }
+//   }
+//
+//   tracker,0,1,2,3,..
+//   google,
+//
+//
+let trackersByCompany = { }
 
 // parentdomain => [ tracker url, tracker url ]
 // 'Yahoo!techcrunch.com': [ 'geo.yahoo.com' ]
 let parent_domain = { }
 
-const files = fs.readdirSync(inputPath);
 
-files.forEach( (fileName) => {
-    let siteName = fileName.replace(/\.json$/, '');
-    let jsonText = fs.readFileSync(inputPath + fileName, 'utf8');
+
+
+
+//----
+
+
+
+// group is groups of groupOrder
+let group = 0
+let groupOrder = 1000
+
+
+
+//----
+
+
+let processFile = (fileName, siteName, filegroup) => {
+// files.forEach( (fileName) => {
+    // let siteName = fileName.replace(/\.json$/, '');
+
+    // console.log(`processFile: filename ${fileName}, site: ${siteName}`)
+
+    let jsonText = ''
     let site = false
-    
+
+
     try {
+        jsonText = fs.readFileSync(inputPath + fileName, 'utf8');
         site = JSON.parse(jsonText);
     } catch (e) {
-        console.log(`bail on ${fileName}`)
+        // console.log(`error reading ${fileName}, skipping`)
         return
     }
 
@@ -62,6 +110,14 @@ files.forEach( (fileName) => {
             parents[p].push(child)
         }
 
+        if (!trackersByCompany[p])
+            trackersByCompany[p] = { }
+
+
+        if (!trackersByCompany[p][filegroup])
+            trackersByCompany[p][filegroup] = 0
+
+        trackersByCompany[p][filegroup]++
 
     }
 
@@ -133,7 +189,49 @@ files.forEach( (fileName) => {
 
         })
     }
-});
+}
+
+// assume current filecount = rank = file order. Use -f to specify
+let filecount = 0
+
+// build file list
+
+if (fileList) {
+    let siteList = fs.readFileSync(fileList, { encoding: 'utf8' }) 
+        .trim()
+        .split('\n')
+
+    siteList.forEach( (n) => {
+
+        processFile(`${n}.json`, n, group)
+
+        filecount += 1
+
+        if (filecount % groupOrder == 0) {
+            group += 1
+            console.log(`group ${group}`)
+        }
+
+
+        // console.log(`${inputPath} ---- ${n}.json`)
+
+    })
+}
+else {
+    let files = fs.readdirSync(inputPath);
+
+    files.forEach( (fileName) => {
+        let siteName = fileName.replace(/\.json$/, '');
+        processFile(fileName, siteName, filecount)
+
+        filecount += 1
+        if (filecount % groupOrder == 0)
+            group += 1
+    })
+}
+
+// Calculate percentages and build output
+
 
 let csvText = 'network,total count,blocked,not blocked,total percent\n'
 let parentPercent = { }
@@ -145,7 +243,7 @@ let pround = (n, precision) => {
 
 Object.keys(parentCount).forEach( (k) => {
 
-    parentPercent[k] = pround(parentCount[k] / files.length * 100, 3)
+    parentPercent[k] = pround(parentCount[k] / filecount * 100, 3)
     if (!blocked[k])
         blocked[k] = 0
     if (!notblocked[k])
@@ -153,10 +251,49 @@ Object.keys(parentCount).forEach( (k) => {
     csvText += `${k},${parentCount[k]},${blocked[k]},${notblocked[k]},${parentPercent[k]}\n`
 })
 
-fs.writeFileSync(`${name}-networks.csv`, csvText)
+fs.writeFileSync(`${output}-networks.csv`, csvText)
 
-fs.writeFileSync(`${name}-networks.json`, JSON.stringify(parentPercent));
+fs.writeFileSync(`${output}-networks.json`, JSON.stringify(parentPercent));
 
+fs.writeFileSync(`${output}-networks-grouped.json`, JSON.stringify(trackersByCompany));
+
+
+let writeGroups = (maxgroups) => {
+    // nullify results from previous runs
+    try {
+        fs.unlinkSync(networksPathCsv);
+    } catch(e) {
+        // ah well
+    }
+
+    // write first line
+    let firstline = 'tracker'
+    for (g=0; g< maxgroups; g++) {
+        firstline += `,${g}`
+    }
+    fs.appendFileSync(networksPathCsv, `${firstline}\n`)
+
+    Object.keys(trackersByCompany).forEach(  (t) => {
+
+        let g = 0;
+        let gs= `${t}`
+        let trackergroups = trackersByCompany[t]
+
+        for (g=0; g< maxgroups; g++) {
+            let c = trackergroups[`${g}`] || 0
+
+            gs += `,${c}`
+
+        }
+        // console.log(gs)
+        fs.appendFileSync(networksPathCsv, `${gs}\n`)
+
+    })
+
+
+}
+
+writeGroups(group)
 
 // console.log(JSON.stringify(parents))
 
