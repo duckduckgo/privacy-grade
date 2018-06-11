@@ -238,6 +238,9 @@ let old_grades_e = {
     'F': 0
 }
 
+let testDump = [
+]
+
 // map score to grade
 let gradeMap = {
     0: 'A',
@@ -401,13 +404,17 @@ let calculateGrade = (fileName) => {
     }
     else
         privacy = polisis.bad
+
+    let privacyForDump = privacy
  
     if (privacy > 10)
         privacy = 10
 
     // unknown privacy practices
-    if (privacy === 0 && polisis.good === 0 && polisis.bad === 0)
+    if (privacy === 0 && polisis.good === 0 && polisis.bad === 0) {
         privacy = privacyUnknown
+        privacyForDump = null
+    }
 
     /*
      * calculate final score
@@ -482,6 +489,7 @@ let calculateGrade = (fileName) => {
      * a variety of output examples.
      * eg shuf 25k.txt | head -500 > 500random.txt
      */
+    let addToDump = false
    
     if (!examples.c[siteGrade])
         examples.c[siteGrade] = 0
@@ -495,6 +503,7 @@ let calculateGrade = (fileName) => {
                 examples.c[siteGrade]++
 
                 appendLine(examplesPath, `site ${siteGrade},${csvtext}\n`)
+                addToDump = true
             }
 
         }
@@ -512,6 +521,7 @@ let calculateGrade = (fileName) => {
                 examples.ce[enhancedGrade]++
 
                 appendLine(examplesPath, `enhanced ${enhancedGrade},${csvtext}\n`)
+                addToDump = true
             }
         }
     }
@@ -531,10 +541,62 @@ let calculateGrade = (fileName) => {
                 examples.spanc[span]++
 
                 appendLine(examplesPath, `span ${siteGrade} to ${enhancedGrade},${csvtext}\n`)
+                addToDump = true
             }
         }
     }
 
+    if (addToDump) {
+        let trackersForDump = []
+
+        Object.keys(site.trackersBlocked).forEach((parentCompany) => {
+            Object.keys(site.trackersBlocked[parentCompany]).forEach((tracker) => {
+                trackersForDump.push({
+                    blocked: true,
+                    prevalence: prev[parentCompany],
+                    parentCompany: parentCompany
+                })
+            })
+        })
+
+        Object.keys(site.trackersNotBlocked).forEach((parentCompany) => {
+            Object.keys(site.trackersNotBlocked[parentCompany]).forEach((tracker) => {
+                trackersForDump.push({
+                    blocked: false,
+                    prevalence: prev[parentCompany],
+                    parentCompany: parentCompany
+                })
+            })
+        })
+
+        testDump.push({
+            url: site.url,
+            input: {
+                trackers: trackersForDump,
+                parentCompany: site.parentCompany || null,
+                parentTrackerPrevalence: prev[site.parentCompany],
+                privacyScore: privacyForDump,
+                https: site.hasHTTPS,
+                httpsAutoUpgrade: au,
+            },
+            expected: {
+                site: {
+                    score: score.s,
+                    grade: siteGrade,
+                    httpsScore: https_s + https_e,
+                    privacyScore: privacy,
+                    trackerScore: tscore.n + tscore.b
+                },
+                enhanced: {
+                    score: score.e,
+                    grade: enhancedGrade,
+                    httpsScore: https_e,
+                    privacyScore: privacy,
+                    trackerScore: tscore.n
+                }
+            }
+        })
+    }
 };
 
 // nullify results from previous runs
@@ -604,5 +666,7 @@ for (let gradeOrder = 0; gradeOrder < 31; gradeOrder++) {
 }
 
 fs.writeFileSync(hist_gradesPath, hist_grades_text, 'utf8');
+
+fs.writeFileSync('testDump.json', JSON.stringify(testDump), 'utf8')
 
 
