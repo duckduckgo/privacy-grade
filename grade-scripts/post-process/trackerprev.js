@@ -52,6 +52,29 @@ let parent_domain = { }
 
 
 
+// "Google": {
+//     "google-analytics.com": {
+//         "parentCompany": "Google",
+//         "url": "google-analytics.com",
+//         "type": "surrogatesList",
+//         "block": true,
+//         "reason": "surrogate",
+//         "redirectUrl": "data:application
+//     } //,
+// }
+let hasSurrogate = (p) => {
+    if (p.reason && p.reason == 'surrogate')
+        return true
+
+    return false
+}
+let hasWhitelist = (p) => {
+    if (p.reason && p.reason == 'whitelisted')
+        return true
+
+    return false
+}
+
 
 
 //----
@@ -151,6 +174,17 @@ let processFile = (fileName, siteName, filegroup) => {
                 addParent(parentEntity, siteName, blocked)
 
             localParents[parentEntity] = true
+
+
+            // this could be generalized
+            if (hasSurrogate(site.trackersBlocked[k][url])) {
+                let sparent = `${parentEntity}-surrogate`
+                if (!localParents[sparent])
+                    addParent(sparent, siteName, blocked)
+                localParents[sparent] = true
+            }
+
+
             
 
         /*
@@ -185,6 +219,12 @@ let processFile = (fileName, siteName, filegroup) => {
 
                 localParents[parentEntity] = true
 
+                if (hasWhitelist(site.trackersNotBlocked[k][url])) {
+                    let sparent = `${parentEntity}-whitelisted`
+                    if (!localParents[sparent])
+                        addParent(sparent, siteName, notblocked)
+                    localParents[sparent] = true
+                }
             })
 
         })
@@ -279,14 +319,20 @@ let writeGroups = (maxgroups) => {
         let gs= `${t}`
         let trackergroups = trackersByCompany[t]
 
+        let total = 0
+
         for (g=0; g< maxgroups; g++) {
             let c = trackergroups[`${g}`] || 0
+            total += c
 
             gs += `,${c}`
 
         }
         // console.log(gs)
-        fs.appendFileSync(networksPathCsv, `${gs}\n`)
+
+        // only write ones that are on about half the groups (in total)
+        if (total > 25) // could also be > 1 or 2 to omit trackers only on one site
+            fs.appendFileSync(networksPathCsv, `${gs}\n`)
 
     })
 
