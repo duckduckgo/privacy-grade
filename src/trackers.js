@@ -1,10 +1,10 @@
 const abp = require('abp-filter-parser')
 const utils = require('./utils')
-const trackersWithParentCompany = require('../data/generated/trackers-with-parent-company')
+const trackersWithParentCompany = require('../duckduckgo-privacy-extension/trackers-with-socialrules')
 const entityMap = require('../data/generated/entity-map')
 const surrogates = require('./surrogates')
 
-const blockSettings = ['Advertising', 'Analytics']
+const blockSettings = ['Advertising', 'Analytics', 'Social']
 
 class Trackers {
     addLists (lists) {
@@ -49,7 +49,7 @@ class Trackers {
             return surrogateTracker
         }
 
-        let trackerFromList = this.checkTrackerLists(urlSplit, currLocation, urlToCheck, requestType)
+        let trackerFromList = this.checkTrackersWithParentCompany(blockSettings, urlSplit, currLocationDomain, {url: urlToCheck, type: requestType})
         if (trackerFromList) {
             let commonParent = this.getCommonParentEntity(currLocation, urlToCheck)
             if (commonParent) {
@@ -125,7 +125,7 @@ class Trackers {
         return false
     }
 
-    checkTrackersWithParentCompany (url, currLocation) {
+    checkTrackersWithParentCompany (blockSettings, url, siteDomain, request) {
         let toBlock
 
         // base case
@@ -134,6 +134,8 @@ class Trackers {
         let trackerURL = url.join('.')
 
         blockSettings.some(function (trackerType) {
+            let request = this.request
+            let siteDomain = this.siteDomain
             // Some trackers are listed under just the host name of their parent company without
             // any subdomain. Ex: ssl.google-analytics.com would be listed under just google-analytics.com.
             // Other trackers are listed using their subdomains. Ex: developers.google.com.
@@ -141,19 +143,38 @@ class Trackers {
             // try pulling off the subdomain and checking again.
             if (trackersWithParentCompany[trackerType]) {
                 let tracker = trackersWithParentCompany[trackerType][trackerURL]
+                let match = false
+
                 if (tracker) {
                     toBlock = {
                         parentCompany: tracker.c,
                         url: trackerURL,
                         type: trackerType,
                         block: true,
-                        reason: 'trackersWithParentCompany'
+                        rule: '',
+                        reason: 'trackersWithParentCompany',
+                        origURL: request
                     }
 
-                    return toBlock
+                    if (tracker.rules) {
+                        tracker.rules.forEach(ruleObj => {
+                            if (this.requestMatchesRule(request, ruleObj.rule)) {
+                                if (this.matchRuleOptions(ruleObj, request, siteDomain)) {
+                                    toBlock.rule = ruleObj
+                                    match = true
+                                }
+                            }
+                        })
+                    } else {
+                        match = true
+                    }
+
+                    if (!match) {
+                        toBlock = null
+                    }
                 }
             }
-        })
+        }, {request: request, siteDomain: siteDomain, requestMatchesRule: this.requestMatchesRule, matchRuleOptions: this.matchRuleOptions})
 
         if (toBlock) {
             return toBlock
@@ -162,8 +183,37 @@ class Trackers {
             // to pull off subdomains until we either find a match or have no url to check.
             // Ex: x.y.z.analytics.com would be checked 4 times pulling off a subdomain each time.
             url.shift()
-            return this.checkTrackersWithParentCompany(url, currLocation)
+            return this.checkTrackersWithParentCompany(blockSettings, url, siteDomain, request)
         }
+    }
+
+    matchRuleOptions (rule, request, siteDomain) {
+        if (!rule.options) return true
+
+        if (rule.options.types) {
+            let matchesType = rule.options.types.findIndex(t => {return t === request.type})
+            if (matchesType === -1) {
+                return false
+            }
+        }
+
+        if (rule.options.domains) {
+            let matchesDomain = rule.options.domains.findIndex(d => {return d === siteDomain})
+            if (matchesDomain === -1) {
+                return false
+            }
+        }
+
+        return true
+    }
+
+    requestMatchesRule (request, rule) {
+        let re = new RegExp(rule + '.*', 'i')
+
+        if (re.exec(request.url)) {
+            return true
+        }
+        return false
     }
 
     /* Check to see if this tracker is related to the current page through their parent companies
