@@ -10,7 +10,8 @@ const listsToLoad = {
     surrogates: `${baseUrl}.js?l=surrogates`,
     https: `${baseUrl}.js?l=https2`,
     whitelist: `${baseUrl}/trackers-whitelist.txt`,
-    entityList: `${baseUrl}.js?l=entitylist2`
+    entityList: `${baseUrl}.js?l=entitylist2`,
+    easylist: `${baseUrl}.js?l=easylist`
 }
 let loadedLists = {}
 

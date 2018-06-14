@@ -27,7 +27,8 @@ const run = async () => {
     https.addLists(listManager.getList('https'))
     trackers.addLists({
         entityList: listManager.getList('entityList'),
-        whitelist: listManager.getList('whitelist')
+        whitelist: listManager.getList('whitelist'),
+        easylist: listManager.getList('easylist')
     })
     surrogates.addLists(listManager.getList('surrogates'))
 

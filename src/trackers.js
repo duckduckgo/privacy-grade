@@ -10,8 +10,10 @@ class Trackers {
     addLists (lists) {
         this.entityList = lists.entityList
         this.whitelist = {}
+        this.easylist = {}
 
         abp.parse(lists.whitelist, this.whitelist)
+        abp.parse(lists.easylist, this.easylist)
     }
 
     isTracker (urlToCheck, currLocation, requestType, ops) {
@@ -90,6 +92,25 @@ class Trackers {
         let trackerByParentCompany = this.checkTrackersWithParentCompany(urlSplit, currLocation)
         if (trackerByParentCompany) {
             return trackerByParentCompany
+        }
+
+        let easylistBlock = this.checkEasylists(urlToCheck, currLocation, requestType)
+        if (easylistBlock) {
+            return easylistBlock
+        }
+    }
+
+    checkEasylists (url, currLocationDomain, requestType) {
+        let toBlock = false
+            
+        let match
+        match = this.checkABPParsedList(this.easylist, url, currLocationDomain, requestType)
+        
+        if (match) {
+            toBlock = this.getTrackerDetails(url, 'general')
+            toBlock.block = true
+            toBlock.reason = 'general'
+            return toBlock
         }
     }
 
