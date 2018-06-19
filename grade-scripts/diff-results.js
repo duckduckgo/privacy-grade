@@ -22,14 +22,31 @@ getFiles(program.dirA).then(() => {
 })
 
 function logDiffs (diffs, site) {
-    let diffToCareAbout = ['before', 'after', 'totalBlocked']
+    let diffToCareAbout = ['before', 'after', 'totalBlocked', 'trackersBlocked']
+    let diffToIgnore = ['rule', 'origURL', 'reason', 'type']
+    let toLog = []
 
-    console.log(`Diffs for ${site}`)
     diffs.forEach(diff => {
         if (diffToCareAbout.includes(diff.path[0])) {
-            console.log(diff)
+            let log = true
+
+            // check ignore 
+            diffToIgnore.forEach(ignore => {
+                if (diff.path.includes(ignore)) {
+                    log = false
+                    return
+                }
+            })
+
+            if (log) toLog.push(diff)
         }
     })
+
+    if (toLog.length) {
+        console.log(`Diffs for ${site}`)
+        console.log(toLog)
+    }
+
 }
 
 function getFiles (dirName) {
