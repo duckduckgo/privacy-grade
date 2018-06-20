@@ -1,6 +1,6 @@
 const abp = require('abp-filter-parser')
 const utils = require('./utils')
-const trackersWithParentCompany = require('../duckduckgo-privacy-extension/trackers-with-socialrules')
+const trackersWithParentCompany = require('../duckduckgo-privacy-extension/shared/data/tracker_lists/trackersWithParentCompany')
 const entityMap = require('../data/generated/entity-map')
 const surrogates = require('./surrogates')
 
@@ -148,7 +148,7 @@ class Trackers {
                 if (tracker) {
                     toBlock = {
                         parentCompany: tracker.c,
-                        url: trackerURL,
+                        url: utils.extractHostFromURL(request.url),
                         type: trackerType,
                         block: true,
                         rule: '',
