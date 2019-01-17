@@ -1,5 +1,7 @@
 const utils = require('./utils')
 const tldjs = require('tldjs')
+const {URL} = require('url')
+const path = require('path')
 
 class Trackers {
     addLists (lists) {
@@ -42,11 +44,11 @@ class Trackers {
 
             // remove first line, store it
             const firstLine = lines.shift()
-
             // take identifier from first line
-            const pattern = firstLine.split(' ')[0]
+            const url = new URL(`http://${firstLine.split(' ')[0]}`)
+            const key = `${url.hostname}/${path.basename(url.pathname)}`
             const b64surrogate = Buffer.from(lines.join('\n').toString(), 'binary').toString('base64')
-            surrogateList[pattern] = b64dataheader + b64surrogate
+            surrogateList[key] = b64dataheader + b64surrogate
         })
         return surrogateList
     }
@@ -82,7 +84,7 @@ class Trackers {
         // finds a matching rule by iterating over the rules in tracker.data and sets redirectUrl.
         const matchedRule = this.findRule(tracker, requestData)
 
-        const redirectUrl = (matchedRule && matchedRule.surrogate) ? this.surrogateList[matchedRule.surrogate] : false
+        const redirectUrl = (matchedRule && matchedRule.surrogate) ? this.surrogateList[`${tracker.domain}/${matchedRule.surrogate}`] : false
 
         // sets tracker.exception by looking at tracker.rule exceptions (if any)
         const matchedRuleException = matchedRule ? this.matchesRuleDefinition(matchedRule, 'exceptions', requestData) : false
