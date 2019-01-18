@@ -44,6 +44,7 @@ class Trackers {
 
             // remove first line, store it
             const firstLine = lines.shift()
+
             // take identifier from first line
             const url = new URL(`http://${firstLine.split(' ')[0]}`)
             const key = `${url.hostname}/${path.basename(url.pathname)}`
