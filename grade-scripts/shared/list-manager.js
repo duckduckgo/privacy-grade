@@ -63,8 +63,8 @@ let loadLists = async () => {
     }
 
     // large https lists don't have an endpoint just yet
-    loadedLists.https = getSymlinkedLocalList('https_list.txt')
-    loadedLists.httpsAutoUpgrade = getSymlinkedLocalList('https_autoupgrade_list.txt')
+    //loadedLists.https = getSymlinkedLocalList('https_list.txt')
+    //loadedLists.httpsAutoUpgrade = getSymlinkedLocalList('https_autoupgrade_list.txt')
 }
 
 let getList = (listName) => loadedLists[listName]

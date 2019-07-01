@@ -40,11 +40,8 @@ class Trackers {
                 return !(/^#.*/).test(line)
             })
 
-            // remove first line, store it
-            const firstLine = lines.shift()
-
             // take identifier from first line
-            const pattern = firstLine.split(' ')[0]
+            const pattern = lines[0].split(' ')[0].split('/').pop()
             const b64surrogate = Buffer.from(lines.join('\n').toString(), 'binary').toString('base64')
             surrogateList[pattern] = b64dataheader + b64surrogate
         })
@@ -87,7 +84,7 @@ class Trackers {
         // sets tracker.exception by looking at tracker.rule exceptions (if any)
         const matchedRuleException = matchedRule ? this.matchesRuleDefinition(matchedRule, 'exceptions', requestData) : false
 
-        const trackerOwner = this.findTrackerOwner(requestData.urlToCheckDomain)
+        const trackerOwner = tracker.owner.name
 
         const websiteOwner = this.findWebsiteOwner(requestData)
 

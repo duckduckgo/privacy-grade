@@ -54,7 +54,7 @@ const getSiteData = (inputPath, fileForSubset) => {
     let siteData = siteDataFiles.map(fileName => require(`${process.cwd()}/${inputPath}/${fileName}`))
 
     // don't process files that failed in the previous step
-    siteData = siteData.filter(data => !siteData.failed)
+    siteData = siteData.filter(data => !siteData.timeout)
 
     return siteData
 }
