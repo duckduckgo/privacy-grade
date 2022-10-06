@@ -87,6 +87,38 @@ class Trackers {
     constructor (ops) {
         this.tldts = ops.tldts || ops.tldjs
         this.utils = ops.utils
+
+        this._onReadyResolvers = new Map()
+        this._onReadyPromises = new Map()
+        for (const listName of ['tds', 'surrogates']) {
+            this._onReadyPromises.set(
+                listName,
+                new Promise(
+                    resolve => {
+                        this._onReadyResolvers.set(listName, resolve)
+                    }
+                )
+            )
+        }
+    }
+
+    /**
+     * Returns a Promise that either resolves after all lists ('tds' and
+     * 'surrogates') have first been loaded, or after just the specified list
+     * has first been loaded.
+     * @param {string} [listName]
+     * @returns {Promise<any>}
+     */
+    ready (listName) {
+        if (!listName) {
+            return Promise.all(this._onReadyPromises.values())
+        }
+
+        const readyPromise = this._onReadyPromises.get(listName)
+        if (!readyPromise) {
+            throw new Error(`Unknown list: ${listName}`)
+        }
+        return readyPromise
     }
 
     /**
@@ -101,6 +133,13 @@ class Trackers {
                 this.cnames = list.data.cnames
             } else if (list.name === 'surrogates') {
                 this.surrogateList = this.processSurrogateList(list.data)
+            }
+
+            // Ensure the onReady promise for this list is resolved.
+            const resolve = this._onReadyResolvers.get(list.name)
+            if (resolve) {
+                resolve()
+                this._onReadyResolvers.delete(list.name)
             }
         })
     }
