@@ -34,7 +34,7 @@
  * @typedef OwnerData
  * @property {string} name
  * @property {string} displayName
- * @property {string | undefined} ownedBy
+ * @property {string} [ownedBy]
  */
 
 /**
