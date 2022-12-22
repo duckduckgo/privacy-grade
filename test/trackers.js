@@ -124,6 +124,19 @@ describe('getTrackerData', () => {
                 expectedRule: null,
                 redirectUrl: false,
                 matchedRuleException: false
+            },
+            // tracker with unknown action
+            {
+                action: 'ignore',
+                urlToCheck: 'https://example.com/unknown-action',
+                siteUrl: 'https://aol.com',
+                requestType: 'script',
+                expectedOwner: 'Example',
+                expectedReason: 'unknown fallback',
+                sameEntity: false,
+                expectedRule: null,
+                redirectUrl: false,
+                matchedRuleException: false
             }
         ]
 

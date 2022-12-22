@@ -549,7 +549,7 @@ class Trackers {
             if (tracker.redirectUrl) {
                 action = 'redirect'
                 reason = 'matched rule - surrogate'
-            } else {
+            } else if (!tracker.matchedRule.action) {
                 action = 'block'
                 reason = 'matched rule - block'
             }
