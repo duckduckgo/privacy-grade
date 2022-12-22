@@ -529,6 +529,7 @@ class Trackers {
         /** @type {ActionName | undefined} */
         let action = 'ignore'
         let reason = 'unknown fallback'
+        const knownActions = ['ignore', 'redirect', 'block', 'block-ctl-fb']
 
         if (tracker.sameEntity) {
             action = 'ignore'
@@ -545,11 +546,11 @@ class Trackers {
         } else if (!tracker.matchedRule && tracker.defaultAction === 'block') {
             action = 'block'
             reason = 'default block'
-        } else if (tracker.matchedRule) {
+        } else if (tracker.matchedRule && !(tracker.matchedRule.action && !knownActions.includes(tracker.matchedRule.action))) {
             if (tracker.redirectUrl) {
                 action = 'redirect'
                 reason = 'matched rule - surrogate'
-            } else if (!tracker.matchedRule.action) {
+            } else {
                 action = 'block'
                 reason = 'matched rule - block'
             }
