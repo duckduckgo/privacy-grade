@@ -25,8 +25,6 @@ module.exports = (grunt) => {
             setup: 'mkdir -p data/generated',
             entityMap: 'node data-scripts/entity-map.js',
             trackersWithParentCompany: 'node data-scripts/trackers-with-parent-company.js',
-            tosdr: 'node data-scripts/tosdr.js',
-            polisis: 'node data-scripts/polisis.js'
         },
         browserify: {
             options: {
@@ -50,8 +48,6 @@ module.exports = (grunt) => {
     grunt.registerTask('updateLists', 'Update data lists used by the grade calculation', [
         'exec:setup',
         'exec:entityMap',
-        'exec:tosdr',
-        'exec:polisis',
         'exec:trackersWithParentCompany'
     ])
     // NOTE: why is browserify being used for the extension?
